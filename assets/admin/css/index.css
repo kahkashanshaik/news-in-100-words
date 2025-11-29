@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Admin custom styles */
+
+/* Classic Editor Meta Box */
+#ai-blog-summary-classic-editor {
+	margin-top: 1rem;
+}
+
+.ai-summary-field-wrapper {
+	margin-bottom: 1rem;
+}
+
+.ai-summary-field-wrapper label {
+	display: block;
+	margin-bottom: 0.5rem;
+	font-weight: 600;
+}
+
+.ai-summary-actions {
+	display: flex;
+	gap: 0.5rem;
+	margin-bottom: 1rem;
+}
+
+.ai-summary-show-icon {
+	margin-bottom: 1rem;
+}
+
+.ai-summary-show-icon label {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: pointer;
+}
+
+.ai-summary-status {
+	margin-top: 0.5rem;
+	min-height: 1.5rem;
+}
+
+/* Settings Page Tabs */
+.nav-tab-wrapper {
+	margin-bottom: 1.5rem;
+}
+
+.tab-content {
+	display: none;
+}
+
+.tab-content:first-of-type {
+	display: block;
+}
+
+/* Gutenberg Panel */
+.ai-blog-summary-panel {
+	padding: 1rem;
+}
+
+.ai-blog-summary-panel .components-textarea-control {
+	margin-bottom: 1rem;
+}
+
+.ai-blog-summary-panel .components-button {
+	margin-right: 0.5rem;
+}
+
