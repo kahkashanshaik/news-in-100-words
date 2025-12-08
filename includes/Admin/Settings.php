@@ -92,6 +92,12 @@ class Settings {
 		$sanitized = array();
 
 		foreach ($settings as $key => $value) {
+			// Handle nested arrays (like thunderbolt)
+			if (is_array($value)) {
+				$sanitized[ $key ] = $this->sanitize($value);
+				continue;
+			}
+
 			switch ($key) {
 				case 'api_key':
 					$sanitized[ $key ] = sanitize_text_field($value);
@@ -112,6 +118,7 @@ class Settings {
 					$sanitized[ $key ] = sanitize_text_field($value);
 					break;
 				case 'auto_generate':
+				case 'show_share':
 					$sanitized[ $key ] = (bool) $value;
 					break;
 				default:
@@ -119,7 +126,13 @@ class Settings {
 			}
 		}
 
-		return wp_parse_args($sanitized, $this->get_all());
+		// Merge with existing settings, but don't use wp_parse_args for nested arrays
+		// wp_parse_args doesn't deep merge, so we need to handle it manually
+		$existing = $this->get_all();
+		foreach ($sanitized as $key => $value) {
+			$existing[$key] = $value;
+		}
+		return $existing;
 	}
 
 	/**

@@ -66,25 +66,37 @@ class OpenAI implements ProviderInterface {
 		$length   = $options['length'] ?? 'medium';
 		$language = $options['language'] ?? 'en';
 
-		// Map length to word count
-		$word_counts = array(
-			'short'  => 50,
-			'medium' => 100,
-			'large'  => 200,
+		// Map length to number of bullet points
+		$bullet_counts = array(
+			'short'  => 1,
+			'medium' => 2,
+			'large'  => 3,
 		);
-		$target_words = $word_counts[ $length ] ?? 100;
+		$target_bullets = $bullet_counts[ $length ] ?? 2;
 
-		// Build prompt - generate summary that will be split into bullet points
+		// Build prompt - request specific number of bullet points
+		$bullet_text = $target_bullets === 1 ? 'ONE bullet point' : ($target_bullets === 2 ? 'TWO bullet points' : 'THREE bullet points');
 		$prompt = sprintf(
-			'Please provide a concise summary of the following content in approximately %d words. Format the summary as 2-3 short paragraphs (each paragraph should be maximum 2 lines, approximately 20-25 words). Each paragraph should be a separate, complete thought. Language: %s. Write only the summary paragraphs, one per line, no additional text or numbering:',
-			$target_words,
+			'Please provide a concise summary of the following content. Generate exactly %s. Each bullet point MUST be concise and MUST NOT exceed TWO lines of text. The summary should capture the key insights, major events, or important takeaways from the post. Language: %s. Return only the bullet points, one per line, with bullet point markers (- or •):',
+			strtoupper($bullet_text),
 			$language
 		);
 
+		$bullet_text = $target_bullets === 1 ? 'ONE bullet point' : ($target_bullets === 2 ? 'TWO bullet points' : 'THREE bullet points');
 		$messages = array(
 			array(
 				'role'    => 'system',
-				'content' => 'You are a helpful assistant that creates concise, accurate summaries of blog posts. Format your response as 2-3 short paragraphs (each maximum 2 lines, approximately 20-25 words). Each paragraph should be a separate, complete thought. Keep summaries brief and focused on key points. Format paragraphs one per line when multiple paragraphs are requested.',
+				'content' => 'You are an expert content summarizer. 
+
+When a blog post or article is provided, generate exactly ' . strtoupper($bullet_text) . '.  
+
+Each bullet point MUST be concise and MUST NOT exceed TWO lines of text.  
+
+The summary should capture the key insights, major events, or important takeaways from the post.  
+
+Do not add extra commentary, do not exceed the line limit, and do not change the meaning of the original content.
+
+Return only the bullet points.',
 			),
 			array(
 				'role'    => 'user',
@@ -93,7 +105,8 @@ class OpenAI implements ProviderInterface {
 		);
 
 		// Estimate tokens needed (roughly 4 characters per token)
-		$estimated_tokens = $target_words * 1.5; // Allow some buffer for formatting
+		// Each bullet point ~50-100 tokens, so 3 bullets = ~300 tokens max
+		$estimated_tokens = 300;
 
 		$body = array(
 			'model'       => $this->model,
@@ -112,10 +125,47 @@ class OpenAI implements ProviderInterface {
 		}
 
 		$summary = $response['choices'][0]['message']['content'] ?? '';
+		$summary = trim($summary);
+
+		// Format summary as bullet points
+		// Split by newlines and format each line as a bullet point
+		$lines = preg_split('/\r\n|\r|\n/', $summary);
+		$bullet_points = array();
+		
+		foreach ($lines as $line) {
+			$line = trim($line);
+			if (empty($line)) {
+				continue;
+			}
+			
+			// Remove existing bullet markers if present
+			$line = preg_replace('/^[\-\•\*]\s*/', '', $line);
+			$line = trim($line);
+			
+			if (!empty($line)) {
+				$bullet_points[] = $line;
+			}
+		}
+
+		// Ensure we have at least some bullet points
+		if (empty($bullet_points)) {
+			// Fallback: use the original summary
+			$bullet_points = array($summary);
+		}
+
+		// Limit to target number of bullets (take first N)
+		$bullet_points = array_slice($bullet_points, 0, $target_bullets);
+
+		// Format as bullet list (stored as HTML)
+		$formatted_summary = '<ul>';
+		foreach ($bullet_points as $point) {
+			$formatted_summary .= '<li>' . esc_html($point) . '</li>';
+		}
+		$formatted_summary .= '</ul>';
 
 		return array(
 			'success' => true,
-			'summary' => trim($summary),
+			'summary' => $formatted_summary,
 			'model'   => $this->model,
 		);
 	}

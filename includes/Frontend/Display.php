@@ -59,6 +59,9 @@ class Display
 		add_action('wp_enqueue_scripts', array($this, 'enqueue_assets'));
 		add_filter('the_title', array($this, 'add_icon_to_title'), 10, 2);
 		add_action('wp_footer', array($this, 'render_popup'));
+		
+		// Don't add icon to titles on Thunderbolt pages
+		add_action('wp', array($this, 'maybe_disable_icon_on_thunderbolt'));
 	}
 
 	/**
@@ -99,6 +102,19 @@ class Display
 	}
 
 	/**
+	 * Maybe disable icon on Thunderbolt pages
+	 *
+	 * @return void
+	 */
+	public function maybe_disable_icon_on_thunderbolt(): void
+	{
+		global $post;
+		if ($post && has_shortcode($post->post_content, 'thunderbolt_news')) {
+			remove_filter('the_title', array($this, 'add_icon_to_title'), 10);
+		}
+	}
+
+	/**
 	 * Add icon to post title
 	 *
 	 * @param string $title Post title.
@@ -109,6 +125,12 @@ class Display
 	{
 		// Prevent infinite recursion
 		if (isset(self::$processing[$post_id])) {
+			return $title;
+		}
+
+		// Don't add icon on Thunderbolt pages
+		global $post;
+		if ($post && has_shortcode($post->post_content, 'thunderbolt_news')) {
 			return $title;
 		}
 
@@ -175,13 +197,16 @@ class Display
 		);
 		$size_class = $size_classes[$icon_size] ?? 'ai-summary-icon-medium';
 
+		// Encode summary for HTML attribute (escape quotes but preserve HTML structure)
+		$summary_encoded = htmlspecialchars($summary, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+		
 		$icon = sprintf(
 			'<span class="ai-summary-icon %s" data-post-id="%d" data-summary="%s" data-title="%s" data-permalink="%s" data-date="%s" data-image="%s" data-category="%s" style="color: %s;" aria-label="%s" role="button" tabindex="0">
 				⚡
 			</span>',
 			esc_attr($size_class),
 			esc_attr($post_id),
-			esc_attr(wp_strip_all_tags($summary)),
+			$summary_encoded,
 			esc_attr($post_title),
 			esc_url($post_permalink),
 			esc_attr($post_date),
@@ -204,6 +229,12 @@ class Display
 	 */
 	public function render_popup(): void
 	{
+		// Don't render popup on Thunderbolt pages
+		global $post;
+		if ($post && has_shortcode($post->post_content, 'thunderbolt_news')) {
+			return;
+		}
+
 		$settings = $this->settings->get_all();
 		$popup_theme = $settings['popup_theme'] ?? 'auto';
 ?>

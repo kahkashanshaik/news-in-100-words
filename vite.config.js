@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -9,7 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = parseInt(process.env.VITE_PORT || process.env.PORT || '3000', 10);
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [],
   root: path.resolve(__dirname),
   base: '/wp-content/plugins/ai-blog-summary/',
   build: {
@@ -20,6 +19,7 @@ export default defineConfig({
       input: {
         admin: path.resolve(__dirname, 'assets/admin/js/index.js'),
         frontend: path.resolve(__dirname, 'assets/frontend/js/index.js'),
+        thunderbolt: path.resolve(__dirname, 'assets/frontend/js/thunderbolt.js'),
       },
       output: {
         entryFileNames: 'js/[name].js',
@@ -30,10 +30,6 @@ export default defineConfig({
           }
           return 'assets/[name]-[hash][extname]';
         },
-      },
-      // Externalize WordPress packages - they're provided by WordPress at runtime
-      external: (id) => {
-        return id.startsWith('@wordpress/') || id === 'wp';
       },
     },
   },

@@ -1,18 +1,10 @@
 // Admin JavaScript entry point
-import '../css/index.css';
-import { registerPlugin } from '@wordpress/plugins';
-import SummaryPanel from './components/SummaryPanel';
+// Works for both Classic and Gutenberg editors
 
-// Register Gutenberg sidebar panel
-registerPlugin('ai-blog-summary-panel', {
-	render: SummaryPanel,
-	icon: 'lightning',
-});
-
-// Classic Editor functionality
 if (typeof jQuery !== 'undefined') {
 	jQuery(document).ready(function($) {
-		const $container = $('#ai-blog-summary-classic-editor');
+		// Support both classic and gutenberg editor containers
+		const $container = $('#ai-blog-summary-classic-editor, #ai-blog-summary-gutenberg-editor');
 		if ($container.length === 0) return;
 
 		const postId = $container.data('post-id');

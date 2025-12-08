@@ -113,7 +113,6 @@ class AutoGenerator {
 				'language' => $this->settings->get_default_language(),
 			)
 		);
-
 		if ($result['success']) {
 			$this->summary_manager->save_summary($post_id, $result['summary']);
 			$this->summary_manager->save_language($post_id, $this->settings->get_default_language());

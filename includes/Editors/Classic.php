@@ -47,6 +47,11 @@ class Classic {
 	 * @return void
 	 */
 	public function add_meta_box(): void {
+		$screen = get_current_screen();
+		if ($screen && $screen->post_type !== 'post') {
+			return;
+		}
+
 		$post_types = $this->get_supported_post_types();
 		foreach ($post_types as $post_type) {
 			add_meta_box(
@@ -71,6 +76,7 @@ class Classic {
 
 		$summary  = $this->summary_manager->get_summary($post->ID);
 		$show_icon = $this->summary_manager->should_show_icon($post->ID);
+		$thunderbolt_news = get_post_meta($post->ID, '_ai_thunderbolt_news', true) === '1';
 		$settings = get_option('ai_blog_summary_settings', array());
 		$default_length = $settings['default_length'] ?? 'medium';
 		$default_language = $settings['default_language'] ?? 'en';
@@ -113,6 +119,13 @@ class Classic {
 				<label>
 					<input type="checkbox" name="ai_show_summary_icon" value="1" <?php checked($show_icon); ?>>
 					<?php esc_html_e('Show summary icon on front-end', 'ai-blog-summary'); ?>
+				</label>
+			</div>
+
+			<div class="ai-summary-thunderbolt-news">
+				<label>
+					<input type="checkbox" name="ai_thunderbolt_news" value="1" <?php checked($thunderbolt_news); ?>>
+					<?php esc_html_e('Add news to thunderbolt', 'ai-blog-summary'); ?>
 				</label>
 			</div>
 
@@ -159,6 +172,10 @@ class Classic {
 		// Save show icon setting.
 		$show_icon = isset($_POST['ai_show_summary_icon']) ? true : false;
 		$this->summary_manager->set_show_icon($post_id, $show_icon);
+
+		// Save thunderbolt news setting.
+		$thunderbolt_news = isset($_POST['ai_thunderbolt_news']) ? true : false;
+		update_post_meta($post_id, '_ai_thunderbolt_news', $thunderbolt_news ? '1' : '0');
 	}
 
 	/**
@@ -169,6 +186,12 @@ class Classic {
 	 */
 	public function enqueue_assets(string $hook): void {
 		if (! in_array($hook, array('post.php', 'post-new.php'), true)) {
+			return;
+		}
+
+		// Only show for posts, not pages
+		$screen = get_current_screen();
+		if ($screen && $screen->post_type !== 'post') {
 			return;
 		}
 

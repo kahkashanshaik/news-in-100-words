@@ -86,8 +86,11 @@ import '../css/index.css';
 			title.textContent = postTitle || '';
 			date.textContent = category ? `${category} | Updated: ${postDate}` : `Updated: ${postDate}`;
 			
-			// Display summary as plain text
-			body.textContent = summary || '';
+			// Display summary as HTML (supports bullet points)
+			// Decode HTML entities that were escaped for the HTML attribute
+			const tempTextarea = document.createElement('textarea');
+			tempTextarea.innerHTML = summary || '';
+			body.innerHTML = tempTextarea.value || summary || '';
 			
 			readMoreBtn.href = permalink || '#';
 			

@@ -14,6 +14,7 @@ use AI_Blog_Summary\Editors\Classic;
 use AI_Blog_Summary\REST\API;
 use AI_Blog_Summary\Admin\SettingsPage;
 use AI_Blog_Summary\Frontend\Display;
+use AI_Blog_Summary\Frontend\Thunderbolt;
 use AI_Blog_Summary\AutoGenerator;
 
 /**
@@ -108,6 +109,19 @@ class Plugin {
 					},
 				)
 			);
+
+			register_post_meta(
+				$post_type,
+				'ai_thunderbolt_news',
+				array(
+					'show_in_rest' => true,
+					'single'       => true,
+					'type'         => 'string',
+					'auth_callback' => function() {
+						return current_user_can('edit_posts');
+					},
+				)
+			);
 		}
 	}
 
@@ -155,6 +169,9 @@ class Plugin {
 		if (! is_admin()) {
 			$display = new Display();
 			$display->init();
+
+			$thunderbolt = new Thunderbolt();
+			$thunderbolt->init();
 		}
 	}
 

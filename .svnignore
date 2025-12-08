@@ -1,0 +1,41 @@
+# Dependencies (too large for SVN)
+node_modules/
+vendor/
+
+# Lock files (not needed)
+package-lock.json
+composer.lock
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+
+# Logs
+*.log
+
+# Git files (SVN doesn't need these)
+.git/
+.gitignore
+
+# Build script (if not needed by users)
+build.sh
+
+# Testing
+.phpunit.result.cache
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+

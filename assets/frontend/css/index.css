@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* Frontend custom styles */
 
 /* Summary Icon */
@@ -255,6 +251,9 @@
 	margin-bottom: 1rem;
 	font-size: 0.9375rem;
 	font-family: inherit; /* Use default font family */
+}
+.ai-summary-popup-body ul {
+	padding-left: 15px;
 }
 
 
