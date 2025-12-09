@@ -235,11 +235,9 @@ class SettingsPage {
 							<td>
 								<select name="ai_blog_summary_settings[default_language]" id="default_language">
 									<option value="en" <?php selected($settings['default_language'], 'en'); ?>>English</option>
-									<option value="es" <?php selected($settings['default_language'], 'es'); ?>>Spanish</option>
-									<option value="fr" <?php selected($settings['default_language'], 'fr'); ?>>French</option>
-									<option value="de" <?php selected($settings['default_language'], 'de'); ?>>German</option>
-									<option value="it" <?php selected($settings['default_language'], 'it'); ?>>Italian</option>
-									<option value="pt" <?php selected($settings['default_language'], 'pt'); ?>>Portuguese</option>
+									<option value="ar" <?php selected($settings['default_language'], 'ar'); ?>>Arabic</option>
+				                    <option value="hi" <?php selected($settings['default_language'], 'hi'); ?>>Hindi</option>
+									<option value="ka" <?php selected($settings['default_language'], 'ka'); ?>>Kannada</option>
 								</select>
 								<p class="description"><?php esc_html_e('Default language for summaries.', 'ai-blog-summary'); ?></p>
 							</td>

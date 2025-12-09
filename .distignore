@@ -7,6 +7,7 @@
 
 # Dependencies
 node_modules/
+node_modules/**
 # vendor/ is included - contains optimized production autoloader (built with --no-dev)
 composer.lock
 package-lock.json
@@ -21,7 +22,7 @@ tsconfig.json
 jsconfig.json
 
 # Development assets (production assets in dist/)
-assets/
+# assets/
 
 # Build outputs (keep dist/ for production)
 # dist/ is included in distribution
