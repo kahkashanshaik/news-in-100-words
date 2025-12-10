@@ -4,12 +4,12 @@
  *
  * Handles postmeta operations for summaries
  *
- * @package AI_Blog_Summary
+ * @package Hundred_Words_News
  */
 
 declare(strict_types=1);
 
-namespace AI_Blog_Summary;
+namespace Hundred_Words_News;
 
 /**
  * Summary Manager class
@@ -19,12 +19,12 @@ class SummaryManager {
 	/**
 	 * Postmeta keys
 	 */
-	private const META_SUMMARY           = '_ai_post_summary';
-	private const META_SUMMARY_VARIANTS  = '_ai_post_summary_variants';
-	private const META_SUMMARY_CLICKS    = '_ai_summary_clicks';
-	private const META_SUMMARY_LANGUAGE  = '_ai_summary_language';
-	private const META_SUMMARY_GENERATED = '_ai_summary_generated_at';
-	private const META_SHOW_ICON         = '_ai_show_summary_icon';
+	private const META_SUMMARY           = '_hundred_words_news_post_summary';
+	private const META_SUMMARY_VARIANTS  = '_hundred_words_news_post_summary_variants';
+	private const META_SUMMARY_CLICKS    = '_hundred_words_news_summary_clicks';
+	private const META_SUMMARY_LANGUAGE  = '_hundred_words_news_summary_language';
+	private const META_SUMMARY_GENERATED = '_hundred_words_news_summary_generated_at';
+	private const META_SHOW_ICON         = '_hundred_words_news_show_summary_icon';
 
 	/**
 	 * Get summary for post

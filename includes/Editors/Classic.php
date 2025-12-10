@@ -2,14 +2,14 @@
 /**
  * Classic Editor Integration
  *
- * @package AI_Blog_Summary
+ * @package Hundred_Words_News
  */
 
 declare(strict_types=1);
 
-namespace AI_Blog_Summary\Editors;
+namespace Hundred_Words_News\Editors;
 
-use AI_Blog_Summary\SummaryManager;
+use Hundred_Words_News\SummaryManager;
 
 /**
  * Classic editor integration
@@ -55,8 +55,8 @@ class Classic {
 		$post_types = $this->get_supported_post_types();
 		foreach ($post_types as $post_type) {
 			add_meta_box(
-				'ai_blog_summary_meta_box',
-				__('AI Blog Summary', 'ai-blog-summary'),
+				'hundred_words_news_meta_box',
+				__('Hundred Words News', 'hundred-words-news'),
 				array($this, 'render_meta_box'),
 				$post_type,
 				'normal',
@@ -72,12 +72,12 @@ class Classic {
 	 * @return void
 	 */
 	public function render_meta_box(\WP_Post $post): void {
-		wp_nonce_field('ai_blog_summary_meta_box', 'ai_blog_summary_nonce');
+		wp_nonce_field('hundred_words_news_meta_box', 'hundred_words_news_nonce');
 
 		$summary  = $this->summary_manager->get_summary($post->ID);
 		$show_icon = $this->summary_manager->should_show_icon($post->ID);
-		$thunderbolt_news = get_post_meta($post->ID, '_ai_thunderbolt_news', true) === '1';
-		$settings = get_option('ai_blog_summary_settings', array());
+		$thunderbolt_news = get_post_meta($post->ID, '_hundred_words_news_thunderbolt_news', true) === '1';
+		$settings = get_option('hundred_words_news_settings', array());
 		$default_length = $settings['default_length'] ?? 'medium';
 		$default_language = $settings['default_language'] ?? 'en';
 
@@ -85,14 +85,14 @@ class Classic {
 		<div id="ai-blog-summary-classic-editor" data-post-id="<?php echo esc_attr($post->ID); ?>">
 			<div class="ai-summary-field-wrapper">
 				<label for="ai_post_summary">
-					<strong><?php esc_html_e('Summary', 'ai-blog-summary'); ?></strong>
+					<strong><?php esc_html_e('Summary', 'hundred-words-news'); ?></strong>
 				</label>
 				<?php
 				wp_editor(
 					$summary,
-					'ai_post_summary',
+					'hundred_words_news_summary',
 					array(
-						'textarea_name' => 'ai_post_summary',
+						'textarea_name' => 'hundred_words_news_summary',
 						'media_buttons'  => false,
 						'textarea_rows'  => 5,
 						'tinymce'        => true,
@@ -106,26 +106,26 @@ class Classic {
 				<button type="button" class="button button-secondary ai-generate-summary" 
 						data-length="<?php echo esc_attr($default_length); ?>"
 						data-language="<?php echo esc_attr($default_language); ?>">
-					<?php esc_html_e('Generate Summary', 'ai-blog-summary'); ?>
+					<?php esc_html_e('Generate News', 'hundred-words-news'); ?>
 				</button>
 				<button type="button" class="button button-secondary ai-regenerate-summary"
 						data-length="<?php echo esc_attr($default_length); ?>"
 						data-language="<?php echo esc_attr($default_language); ?>">
-					<?php esc_html_e('Regenerate Summary', 'ai-blog-summary'); ?>
+					<?php esc_html_e('Regenerate News', 'hundred-words-news'); ?>
 				</button>
 			</div>
 
 			<div class="ai-summary-show-icon">
 				<label>
 					<input type="checkbox" name="ai_show_summary_icon" value="1" <?php checked($show_icon); ?>>
-					<?php esc_html_e('Show summary icon on front-end', 'ai-blog-summary'); ?>
+					<?php esc_html_e('Show news icon on front-end', 'hundred-words-news'); ?>
 				</label>
 			</div>
 
 			<div class="ai-summary-thunderbolt-news">
 				<label>
 					<input type="checkbox" name="ai_thunderbolt_news" value="1" <?php checked($thunderbolt_news); ?>>
-					<?php esc_html_e('Add news to thunderbolt', 'ai-blog-summary'); ?>
+					<?php esc_html_e('Add news to thunderbolt', 'hundred-words-news'); ?>
 				</label>
 			</div>
 
@@ -143,8 +143,8 @@ class Classic {
 	 */
 	public function save_meta_box(int $post_id, \WP_Post $post): void {
 		// Verify nonce.
-		if (! isset($_POST['ai_blog_summary_nonce']) || 
-			 ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['ai_blog_summary_nonce'])), 'ai_blog_summary_meta_box')) {
+		if (! isset($_POST['hundred_words_news_nonce']) || 
+			 ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['hundred_words_news_nonce'])), 'hundred_words_news_meta_box')) {
 			return;
 		}
 
@@ -159,23 +159,23 @@ class Classic {
 		}
 
 		// Save summary.
-		if (isset($_POST['ai_post_summary'])) {
-			$summary = wp_kses_post(wp_unslash($_POST['ai_post_summary']));
+		if (isset($_POST['hundred_words_news_summary'])) {
+			$summary = wp_kses_post(wp_unslash($_POST['hundred_words_news_summary']));
 			if (! empty($summary)) {
 				$this->summary_manager->save_summary($post_id, $summary);
 			} else {
 				// If empty, delete the summary.
-				delete_post_meta($post_id, '_ai_post_summary');
+				delete_post_meta($post_id, '_hundred_words_news_summary');
 			}
 		}
 
 		// Save show icon setting.
-		$show_icon = isset($_POST['ai_show_summary_icon']) ? true : false;
+		$show_icon = isset($_POST['hundred_words_news_show_summary_icon']) ? true : false;
 		$this->summary_manager->set_show_icon($post_id, $show_icon);
 
 		// Save thunderbolt news setting.
-		$thunderbolt_news = isset($_POST['ai_thunderbolt_news']) ? true : false;
-		update_post_meta($post_id, '_ai_thunderbolt_news', $thunderbolt_news ? '1' : '0');
+		$thunderbolt_news = isset($_POST['hundred_words_news_thunderbolt_news']) ? true : false;
+		update_post_meta($post_id, '_hundred_words_news_thunderbolt_news', $thunderbolt_news ? '1' : '0');
 	}
 
 	/**
@@ -201,25 +201,25 @@ class Classic {
 		}
 
 		wp_enqueue_script(
-			'ai-blog-summary-admin',
-			AI_BLOG_SUMMARY_PLUGIN_URL . 'dist/js/admin.js',
+			'hundred-words-news-admin',
+			HUNDRED_WORDS_NEWS_PLUGIN_URL . 'dist/js/admin.js',
 			array('jquery'),
-			AI_BLOG_SUMMARY_VERSION,
+			HUNDRED_WORDS_NEWS_VERSION,
 			true
 		);
 
 		wp_enqueue_style(
-			'ai-blog-summary-admin',
-			AI_BLOG_SUMMARY_PLUGIN_URL . 'dist/css/admin.css',
+			'hundred-words-news-admin',
+			HUNDRED_WORDS_NEWS_PLUGIN_URL . 'dist/css/admin.css',
 			array(),
-			AI_BLOG_SUMMARY_VERSION
+			HUNDRED_WORDS_NEWS_VERSION
 		);
 
 		wp_localize_script(
-			'ai-blog-summary-admin',
-			'aiBlogSummary',
+			'hundred-words-news-admin',
+			'hundredWordsNews',
 			array(
-				'apiUrl'  => rest_url('ai-summary/v1/'),
+				'apiUrl'  => rest_url('hundred-words-news/v1/'),
 				'nonce'   => wp_create_nonce('wp_rest'),
 			)
 		);

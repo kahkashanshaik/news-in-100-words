@@ -4,15 +4,15 @@
  *
  * Handles automatic summary generation on post save
  *
- * @package AI_Blog_Summary
+ * @package Hundred_Words_News
  */
 
 declare(strict_types=1);
 
-namespace AI_Blog_Summary;
+namespace Hundred_Words_News;
 
-use AI_Blog_Summary\Providers\OpenAI;
-use AI_Blog_Summary\Admin\Settings;
+use Hundred_Words_News\Providers\OpenAI;
+use Hundred_Words_News\Admin\Settings;
 
 /**
  * Auto Generator class

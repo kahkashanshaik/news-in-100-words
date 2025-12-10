@@ -2,20 +2,20 @@
 /**
  * Main Plugin Class
  *
- * @package AI_Blog_Summary
+ * @package Hundred_Words_News
  */
 
 declare(strict_types=1);
 
-namespace AI_Blog_Summary;
+namespace Hundred_Words_News;
 
-use AI_Blog_Summary\Editors\Gutenberg;
-use AI_Blog_Summary\Editors\Classic;
-use AI_Blog_Summary\REST\API;
-use AI_Blog_Summary\Admin\SettingsPage;
-use AI_Blog_Summary\Frontend\Display;
-use AI_Blog_Summary\Frontend\Thunderbolt;
-use AI_Blog_Summary\AutoGenerator;
+use Hundred_Words_News\Editors\Gutenberg;
+use Hundred_Words_News\Editors\Classic;
+use Hundred_Words_News\REST\API;
+use Hundred_Words_News\Admin\SettingsPage;
+use Hundred_Words_News\Frontend\Display;
+use Hundred_Words_News\Frontend\Thunderbolt;
+use Hundred_Words_News\AutoGenerator;
 
 /**
  * Main plugin class
@@ -86,7 +86,7 @@ class Plugin {
 		foreach ($post_types as $post_type) {
 			register_post_meta(
 				$post_type,
-				'ai_post_summary',
+				'hundred_words_news_post_summary',
 				array(
 					'show_in_rest' => true,
 					'single'       => true,
@@ -99,7 +99,7 @@ class Plugin {
 
 			register_post_meta(
 				$post_type,
-				'ai_show_summary_icon',
+				'hundred_words_news_show_summary_icon',
 				array(
 					'show_in_rest' => true,
 					'single'       => true,
@@ -112,7 +112,7 @@ class Plugin {
 
 			register_post_meta(
 				$post_type,
-				'ai_thunderbolt_news',
+				'hundred_words_news_thunderbolt_news',
 				array(
 					'show_in_rest' => true,
 					'single'       => true,
@@ -192,9 +192,9 @@ class Plugin {
 	 */
 	public function load_textdomain(): void {
 		load_plugin_textdomain(
-			'ai-blog-summary',
+			'hundred-words-news',
 			false,
-			dirname(AI_BLOG_SUMMARY_PLUGIN_BASENAME) . '/languages'
+			dirname(HUNDRED_WORDS_NEWS_PLUGIN_BASENAME) . '/languages'
 		);
 	}
 }

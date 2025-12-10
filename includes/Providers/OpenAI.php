@@ -2,12 +2,12 @@
 /**
  * OpenAI Provider Implementation
  *
- * @package AI_Blog_Summary
+ * @package Hundred_Words_News
  */
 
 declare(strict_types=1);
 
-namespace AI_Blog_Summary\Providers;
+namespace Hundred_Words_News\Providers;
 
 /**
  * OpenAI provider class

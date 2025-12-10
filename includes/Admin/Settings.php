@@ -2,12 +2,12 @@
 /**
  * Settings Manager
  *
- * @package AI_Blog_Summary
+ * @package Hundred_Words_News
  */
 
 declare(strict_types=1);
 
-namespace AI_Blog_Summary\Admin;
+namespace Hundred_Words_News\Admin;
 
 /**
  * Settings class
@@ -19,7 +19,7 @@ class Settings {
 	 *
 	 * @var string
 	 */
-	private const OPTION_NAME = 'ai_blog_summary_settings';
+	private const OPTION_NAME = 'hundred_words_news_settings';
 
 	/**
 	 * Default settings

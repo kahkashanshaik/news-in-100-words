@@ -2,16 +2,16 @@
 /**
  * REST API Endpoints
  *
- * @package AI_Blog_Summary
+ * @package Hundred_Words_News
  */
 
 declare(strict_types=1);
 
-namespace AI_Blog_Summary\REST;
+namespace Hundred_Words_News\REST;
 
-use AI_Blog_Summary\SummaryManager;
-use AI_Blog_Summary\Providers\OpenAI;
-use AI_Blog_Summary\Admin\Settings;
+use Hundred_Words_News\SummaryManager;
+use Hundred_Words_News\Providers\OpenAI;
+use Hundred_Words_News\Admin\Settings;
 
 /**
  * REST API class
@@ -47,7 +47,7 @@ class API {
 	 */
 	public function register_routes(): void {
 		register_rest_route(
-			'ai-summary/v1',
+			'hundred-words-news/v1',
 			'/generate',
 			array(
 				'methods'             => 'POST',
@@ -71,7 +71,7 @@ class API {
 		);
 
 		register_rest_route(
-			'ai-summary/v1',
+			'hundred-words-news/v1',
 			'/track',
 			array(
 				'methods'             => 'POST',
@@ -87,7 +87,7 @@ class API {
 		);
 
 		register_rest_route(
-			'ai-summary/v1',
+			'hundred-words-news/v1',
 			'/settings',
 			array(
 				'methods'             => 'GET',

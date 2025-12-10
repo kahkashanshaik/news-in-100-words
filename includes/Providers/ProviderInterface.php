@@ -2,12 +2,12 @@
 /**
  * AI Provider Interface
  *
- * @package AI_Blog_Summary
+ * @package Hundred_Words_News
  */
 
 declare(strict_types=1);
 
-namespace AI_Blog_Summary\Providers;
+namespace Hundred_Words_News\Providers;
 
 /**
  * Provider interface for AI services
