@@ -282,7 +282,7 @@ class Display
 					</div>
 
 					<!-- Share Buttons Sidebar -->
-					<div class="hwn-popup-share">
+					<!-- <div class="hwn-popup-share">
 						<div class="hwn-popup-share-icon">
 							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M15 13C14.24 13 13.56 13.3 13.04 13.76L7.91 10.35C7.96 10.24 8 10.12 8 10C8 9.88 7.96 9.76 7.91 9.65L12.96 6.24C13.5 6.72 14.21 7 15 7C16.66 7 18 5.66 18 4C18 2.34 16.66 1 15 1C13.34 1 12 2.34 12 4C12 4.12 12.04 4.24 12.09 4.35L7.04 7.76C6.5 7.28 5.79 7 5 7C3.34 7 2 8.34 2 10C2 11.66 3.34 13 5 13C5.79 13 6.5 12.72 7.04 12.24L12.16 15.65C12.11 15.76 12.08 15.88 12.08 16C12.08 17.61 13.39 18.92 15 18.92C16.61 18.92 17.92 17.61 17.92 16C17.92 14.39 16.61 13.08 15 13.08Z" fill="currentColor" />
@@ -328,7 +328,7 @@ class Display
 								<span>Copy Link</span>
 							</a>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 	<?php

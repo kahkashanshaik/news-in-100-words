@@ -179,5 +179,25 @@ import '../css/thunderbolt.css';
 
 		// Initialize share buttons
 		initShareButtons();
+
+		// Info icon tooltip functionality
+		function initInfoIconTooltip() {
+			$(document).on('mouseenter', '.hwn-popup-info-icon', function () {
+				const $tooltip = $(this).find('.hwn-popup-tooltip');
+				if ($tooltip.length) {
+					$tooltip.addClass('hwn-popup-tooltip-visible');
+				}
+			});
+
+			$(document).on('mouseleave', '.hwn-popup-info-icon', function () {
+				const $tooltip = $(this).find('.hwn-popup-tooltip');
+				if ($tooltip.length) {
+					$tooltip.removeClass('hwn-popup-tooltip-visible');
+				}
+			});
+		}
+
+		// Initialize info icon tooltip
+		initInfoIconTooltip();
 	});
 })(jQuery);

@@ -222,7 +222,18 @@ class Thunderbolt
 		// Card Content
 		$card_html .= '<div class="text-content">
 						<h2 style="' . esc_attr($title_style) . ';">' . esc_html($title) . '</h2>
-						<p class="meta" style="' . esc_attr($meta_style) . ';">' . esc_html($category) . ' | ' . esc_html($date) . '</p>';
+						<div class="hwn-popup-meta">
+							<p class="meta" style="' . esc_attr($meta_style) . ';">' . esc_html($category) . ' | ' . esc_html($date) . '</p>
+							<span class="hwn-popup-info-icon" aria-label="' . esc_attr__('AI Summary Information', 'hundred-words-news') . '">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" fill="none" />
+									<path d="M8 11V8M8 5H8.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+								</svg>
+								<div class="hwn-popup-tooltip">
+									' . esc_html__('Summary is AI-generated, newsroom-reviewed', 'hundred-words-news') . '
+								</div>
+							</span>
+						</div>';
 		
 		// Summary Body
 		if ($summary_html) {

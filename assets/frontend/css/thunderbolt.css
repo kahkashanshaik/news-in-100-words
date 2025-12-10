@@ -312,6 +312,95 @@ body.thunderbolt-theme-dark {
     color: var(--thunderbolt-meta-color, #aaa);
 }
 
+/* Meta container with info icon */
+.text-content .hwn-popup-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--thunderbolt-meta-color, #aaa);
+}
+
+/* Info Icon */
+.text-content .hwn-popup-info-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    color: var(--thunderbolt-meta-color, #aaa);
+    transition: color 0.2s ease;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.text-content .hwn-popup-info-icon:hover {
+    color: var(--thunderbolt-text-color, #fff);
+}
+
+.text-content .hwn-popup-info-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Tooltip */
+.text-content .hwn-popup-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    background: #4a4a4a;
+    color: #ffffff;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    margin-bottom: 0.5rem;
+    z-index: 20;
+}
+
+.text-content .hwn-popup-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #4a4a4a;
+}
+
+.text-content .hwn-popup-info-icon:hover .hwn-popup-tooltip,
+.text-content .hwn-popup-tooltip.hwn-popup-tooltip-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Light theme tooltip */
+.thunderbolt-theme-light .text-content .hwn-popup-tooltip {
+    background: #2a2a2a;
+    color: #ffffff;
+}
+
+.thunderbolt-theme-light .text-content .hwn-popup-tooltip::after {
+    border-top-color: #2a2a2a;
+}
+
+.thunderbolt-theme-light .text-content .hwn-popup-info-icon {
+    color: var(--thunderbolt-meta-color, #666);
+}
+
+.thunderbolt-theme-light .text-content .hwn-popup-info-icon:hover {
+    color: var(--thunderbolt-text-color, #1a1a1a);
+}
+
 .text-content ul {
     padding-left: 15px;
     color: var(--thunderbolt-content-color, var(--thunderbolt-text-color, #ddd));
