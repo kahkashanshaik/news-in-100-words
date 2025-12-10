@@ -1,7 +1,7 @@
 /* Frontend custom styles */
 
 /* Summary Icon */
-.ai-summary-icon {
+.hwn-icon {
 	display: inline-block;
 	cursor: pointer;
 	transition: transform 0.2s ease, opacity 0.2s ease;
@@ -9,31 +9,31 @@
 	vertical-align: middle;
 }
 
-.ai-summary-icon:hover {
+.hwn-icon:hover {
 	transform: scale(1.2);
 	opacity: 0.8;
 }
 
-.ai-summary-icon:focus {
+.hwn-icon:focus {
 	outline: 2px solid currentColor;
 	outline-offset: 2px;
 	border-radius: 2px;
 }
 
-.ai-summary-icon-small {
+.hwn-icon-small {
 	font-size: 0.875rem;
 }
 
-.ai-summary-icon-medium {
+.hwn-icon-medium {
 	font-size: 1rem;
 }
 
-.ai-summary-icon-large {
+.hwn-icon-large {
 	font-size: 1.25rem;
 }
 
 /* Popup Modal */
-.ai-summary-popup {
+.hwn-popup {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -48,12 +48,12 @@
 	transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.ai-summary-popup-active {
+.hwn-popup-active {
 	opacity: 1;
 	visibility: visible;
 }
 
-.ai-summary-popup-overlay {
+.hwn-popup-overlay {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -63,7 +63,7 @@
 	backdrop-filter: blur(4px);
 }
 
-.ai-summary-popup-wrapper {
+.hwn-popup-wrapper {
 	position: relative;
 	/* display: flex; */
 	/* align-items: flex-start; */
@@ -81,11 +81,11 @@
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-.ai-summary-popup-wrapper::-webkit-scrollbar {
+.hwn-popup-wrapper::-webkit-scrollbar {
 	display: none;
 }
 
-.ai-summary-popup-card {
+.hwn-popup-card {
 	position: relative;
 	background: #2a2a2a;
 	border-radius: 12px;
@@ -98,11 +98,11 @@
 	transition: transform 0.3s ease;
 }
 
-.ai-summary-popup-active .ai-summary-popup-card {
+.hwn-popup-active .hwn-popup-card {
 	transform: scale(1);
 }
 
-.ai-summary-popup-close {
+.hwn-popup-close {
 	position: absolute;
 	top: 1rem;
 	right: 1rem;
@@ -123,13 +123,13 @@
 	padding: 0;
 }
 
-.ai-summary-popup-close:hover {
+.hwn-popup-close:hover {
 	background-color: rgba(0, 0, 0, 0.7);
 	transform: scale(1.1);
 }
 
 /* Featured Image */
-.ai-summary-popup-image {
+.hwn-popup-image {
 	width: 100%;
 	height: 0;
 	padding-bottom: 56.25%; /* 16:9 aspect ratio */
@@ -138,7 +138,7 @@
 	background: #1a1a1a;
 }
 
-.ai-summary-popup-image img {
+.hwn-popup-image img {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -148,18 +148,18 @@
 	display: none;
 }
 
-.ai-summary-popup-image img[src] {
+.hwn-popup-image img[src] {
 	display: block;
 }
 
 /* Card Content */
-.ai-summary-popup-card-content {
+.hwn-popup-card-content {
 	padding: 1rem;
 	color: #ffffff;
 	position: relative; /* For absolute positioning of share button */
 }
 
-.ai-summary-popup-title {
+.hwn-popup-title {
 	margin: 0 0 0.75rem 0;
 	font-size: 1.2rem;
 	font-weight: 700;
@@ -169,7 +169,7 @@
 }
 
 /* Meta (Date and Info Icon) */
-.ai-summary-popup-meta {
+.hwn-popup-meta {
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
@@ -178,11 +178,11 @@
 	color: #a0a0a0;
 }
 
-.ai-summary-popup-date {
+.hwn-popup-date {
 	font-size: 0.75rem;
 }
 
-.ai-summary-popup-info-icon {
+.hwn-popup-info-icon {
 	position: relative;
 	display: inline-flex;
 	align-items: center;
@@ -195,11 +195,11 @@
 	border-radius: 50%;
 }
 
-.ai-summary-popup-info-icon:hover {
+.hwn-popup-info-icon:hover {
 	color: #ffffff;
 }
 
-.ai-summary-popup-tooltip {
+.hwn-popup-tooltip {
 	position: absolute;
 	bottom: 100%;
 	left: 50%;
@@ -218,7 +218,7 @@
 	z-index: 20;
 }
 
-.ai-summary-popup-tooltip::after {
+.hwn-popup-tooltip::after {
 	content: '';
 	position: absolute;
 	top: 100%;
@@ -228,14 +228,14 @@
 	border-top-color: #4a4a4a;
 }
 
-.ai-summary-popup-tooltip-visible {
+.hwn-popup-tooltip-visible {
 	opacity: 1;
 	visibility: visible;
 	transform: translateX(-50%) translateY(0);
 }
 
 /* AI Generated Label */
-.ai-summary-popup-label {
+.hwn-popup-label {
 	font-size: 0.75rem;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -245,14 +245,14 @@
 }
 
 /* Summary Body */
-.ai-summary-popup-body {
+.hwn-popup-body {
 	line-height: 1.6;
 	color: #e0e0e0;
 	margin-bottom: 1rem;
 	font-size: 0.9375rem;
 	font-family: inherit; /* Use default font family */
 }
-.ai-summary-popup-body ul {
+.hwn-popup-body ul {
 	padding-left: 15px;
 }
 
@@ -264,7 +264,7 @@
    align-items: center;
    width: 100%;
 }
-.ai-summary-popup-readmore {
+.hwn-popup-readmore {
 	display: inline-block;
 	background: #dc2626;
 	color: #ffffff;
@@ -280,19 +280,19 @@
 	margin-bottom: 0; /* Remove any default margin */
 }
 
-.ai-summary-popup-readmore:hover {
+.hwn-popup-readmore:hover {
 	background: var(--readmore-hover-color, #b91c1c) !important;
 	/* Fallback: if custom color is set, use a darker shade */
 	filter: brightness(0.85);
 	transform: translateY(-1px);
 }
 
-.ai-summary-popup-readmore:active {
+.hwn-popup-readmore:active {
 	transform: translateY(0);
 }
 
 /* Share Sidebar */
-.ai-summary-popup-share {
+.hwn-popup-share {
 	position: absolute;
 	top: 1.5rem; /* Match card-content padding to align with Read More button */
 	left: 1.5rem; /* Match card-content padding */
@@ -304,7 +304,7 @@
 	z-index: 20;
 }
 
-.ai-summary-popup-share-icon {
+.hwn-popup-share-icon {
 	width: 44px;
 	height: 44px;
 	min-width: 44px; /* Ensure minimum width on mobile */
@@ -324,17 +324,17 @@
 	opacity: 1; /* Ensure icon is not transparent */
 }
 
-.ai-summary-popup-share-icon:hover {
+.hwn-popup-share-icon:hover {
 	color: #ffffff;
 	transform: scale(1.05);
 }
 
-.ai-summary-popup-share-icon svg {
+.hwn-popup-share-icon svg {
 	width: 20px;
 	height: 20px;
 }
 
-.ai-summary-popup-share-buttons {
+.hwn-popup-share-buttons {
 	position: absolute;
 	left: 100%; /* Position to the right of the share icon */
 	top: 0; /* Align with the top of the share icon */
@@ -353,8 +353,8 @@
 	margin: -0.25rem;
 }
 
-.ai-summary-popup-share:hover .ai-summary-popup-share-buttons,
-.ai-summary-popup-share-active .ai-summary-popup-share-buttons {
+.hwn-popup-share:hover .hwn-popup-share-buttons,
+.hwn-popup-share-active .hwn-popup-share-buttons {
 	opacity: 1;
 	visibility: visible;
 	transform: translateX(0);
@@ -362,24 +362,24 @@
 }
 
 /* Keep menu visible when hovering over buttons */
-.ai-summary-popup-share-buttons:hover {
+.hwn-popup-share-buttons:hover {
 	opacity: 1 !important;
 	visibility: visible !important;
 	pointer-events: auto !important;
 }
 
 /* Ensure share buttons are always clickable when visible */
-.ai-summary-popup-share-buttons .ai-summary-share-btn {
+.hwn-popup-share-buttons .hwn-share-btn {
 	pointer-events: auto !important;
 	cursor: pointer !important;
 }
 
 /* Ensure card has relative positioning for absolute share button */
-.ai-summary-popup-card {
+.hwn-popup-card {
 	position: relative;
 }
 
-.ai-summary-share-btn {
+.hwn-share-btn {
 	display: flex;
 	align-items: center;
 	gap: 0.75rem;
@@ -396,164 +396,164 @@
 	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
-.ai-summary-share-btn:hover {
+.hwn-share-btn:hover {
 	background: #4a4a4a;
 	transform: translateX(2px);
 }
 
-.ai-summary-share-btn svg {
+.hwn-share-btn svg {
 	width: 20px;
 	height: 20px;
 	flex-shrink: 0;
 }
 
-.ai-summary-share-btn span {
+.hwn-share-btn span {
 	flex: 1;
 }
 
 /* Platform-specific colors */
-.ai-summary-share-facebook:hover {
+.hwn-share-facebook:hover {
 	background: #1877f2;
 }
 
-.ai-summary-share-twitter:hover {
+.hwn-share-twitter:hover {
 	background: #000000;
 }
 
-.ai-summary-share-whatsapp:hover {
+.hwn-share-whatsapp:hover {
 	background: #25d366;
 }
 
-.ai-summary-share-reddit:hover {
+.hwn-share-reddit:hover {
 	background: #ff4500;
 }
 
-.ai-summary-share-email:hover {
+.hwn-share-email:hover {
 	background: #6b7280;
 }
 
-.ai-summary-share-link:hover {
+.hwn-share-link:hover {
 	background: #6b7280;
 }
 
 /* Light theme override */
-.ai-summary-popup-light .ai-summary-popup-card {
+.hwn-popup-light .hwn-popup-card {
 	background: #ffffff;
 }
 
-.ai-summary-popup-light .ai-summary-popup-card-content {
+.hwn-popup-light .hwn-popup-card-content {
 	color: #1a1a1a;
 }
 
-.ai-summary-popup-light .ai-summary-popup-title {
+.hwn-popup-light .hwn-popup-title {
 	color: #1a1a1a;
 }
 
-.ai-summary-popup-light .ai-summary-popup-meta {
+.hwn-popup-light .hwn-popup-meta {
 	color: #666666;
 }
 
-.ai-summary-popup-light .ai-summary-popup-info-icon {
+.hwn-popup-light .hwn-popup-info-icon {
 	color: #666666;
 }
 
-.ai-summary-popup-light .ai-summary-popup-info-icon:hover {
+.hwn-popup-light .hwn-popup-info-icon:hover {
 	color: #1a1a1a;
 }
 
-	.ai-summary-popup-light .ai-summary-popup-body {
+	.hwn-popup-light .hwn-popup-body {
 		color: #333333;
 	}
 
-.ai-summary-popup-light .ai-summary-popup-label {
+.hwn-popup-light .hwn-popup-label {
 	color: #888888;
 }
 
-.ai-summary-popup-light .ai-summary-popup-close {
+.hwn-popup-light .hwn-popup-close {
 	color: #ffffff;
 	background: rgba(0, 0, 0, 0.5);
 }
 
-.ai-summary-popup-light .ai-summary-popup-share-icon {
+.hwn-popup-light .hwn-popup-share-icon {
 	color: #1a1a1a;
 }
 
-.ai-summary-popup-light .ai-summary-share-btn {
+.hwn-popup-light .hwn-share-btn {
 	background: #f3f4f6;
 	color: #1a1a1a;
 }
 
-.ai-summary-popup-light .ai-summary-share-btn:hover {
+.hwn-popup-light .hwn-share-btn:hover {
 	background: #e5e7eb;
 }
 
 /* Auto theme (respects system preference) */
 @media (prefers-color-scheme: light) {
-	.ai-summary-popup-auto .ai-summary-popup-card {
+	.hwn-popup-auto .hwn-popup-card {
 		background: #ffffff;
 	}
 
-	.ai-summary-popup-auto .ai-summary-popup-card-content {
+	.hwn-popup-auto .hwn-popup-card-content {
 		color: #1a1a1a;
 	}
 
-	.ai-summary-popup-auto .ai-summary-popup-title {
+	.hwn-popup-auto .hwn-popup-title {
 		color: #1a1a1a;
 	}
 
-	.ai-summary-popup-auto .ai-summary-popup-meta {
+	.hwn-popup-auto .hwn-popup-meta {
 		color: #666666;
 	}
 
-	.ai-summary-popup-auto .ai-summary-popup-info-icon {
+	.hwn-popup-auto .hwn-popup-info-icon {
 		color: #666666;
 	}
 
-	.ai-summary-popup-auto .ai-summary-popup-info-icon:hover {
+	.hwn-popup-auto .hwn-popup-info-icon:hover {
 		color: #1a1a1a;
 	}
 
-	.ai-summary-popup-auto .ai-summary-popup-body {
+	.hwn-popup-auto .hwn-popup-body {
 		color: #333333;
 	}
 
-	.ai-summary-popup-auto .ai-summary-popup-label {
+	.hwn-popup-auto .hwn-popup-label {
 		color: #888888;
 	}
 
-	.ai-summary-popup-auto .ai-summary-popup-close {
+	.hwn-popup-auto .hwn-popup-close {
 		color: #ffffff;
 		background: rgba(0, 0, 0, 0.5);
 	}
 
-	.ai-summary-popup-auto .ai-summary-popup-share-icon {
+	.hwn-popup-auto .hwn-popup-share-icon {
 		color: #1a1a1a;
 	}
 
-	.ai-summary-popup-auto .ai-summary-share-btn {
+	.hwn-popup-auto .hwn-share-btn {
 		background: #f3f4f6;
 		color: #1a1a1a;
 	}
 
-	.ai-summary-popup-auto .ai-summary-share-btn:hover {
+	.hwn-popup-auto .hwn-share-btn:hover {
 		background: #e5e7eb;
 	}
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-	.ai-summary-popup-wrapper {
+	.hwn-popup-wrapper {
 		flex-direction: column;
 		align-items: center;
 		padding: 1rem;
 		max-width: 95%;
 	}
 
-	.ai-summary-popup-card {
+	.hwn-popup-card {
 		max-width: 100%;
 	}
 
-	.ai-summary-popup-share {
+	.hwn-popup-share {
 		top: 1.25rem; /* Match card-content padding on mobile - top position */
 		left: 1.25rem; /* Match card-content padding on mobile - left position */
 		position: absolute;
@@ -562,7 +562,7 @@
 		opacity: 1; /* Ensure it's not transparent */
 	}
 
-	.ai-summary-popup-share-buttons {
+	.hwn-popup-share-buttons {
 		left: 100%; /* Position to the right of the share icon */
 		top: 0; /* Align with the top of the share icon */
 		margin-left: 0.5rem;
@@ -572,12 +572,12 @@
 		width: auto;
 	}
 
-	.ai-summary-popup-share:hover .ai-summary-popup-share-buttons,
-	.ai-summary-popup-share-active .ai-summary-popup-share-buttons {
+	.hwn-popup-share:hover .hwn-popup-share-buttons,
+	.hwn-popup-share-active .hwn-popup-share-buttons {
 		transform: translateX(0);
 	}
 
-	.ai-summary-share-btn {
+	.hwn-share-btn {
 		min-width: auto;
 		flex: 1;
 		justify-content: center;
@@ -586,27 +586,27 @@
 }
 
 @media (max-width: 640px) {
-	.ai-summary-popup-wrapper {
+	.hwn-popup-wrapper {
 		padding: 0.5rem;
 	}
 
-	.ai-summary-popup-card {
+	.hwn-popup-card {
 		max-width: 100%;
 	}
 
-	.ai-summary-popup-card-content {
+	.hwn-popup-card-content {
 		padding: 1.25rem;
 	}
 
-	.ai-summary-popup-title {
+	.hwn-popup-title {
 		font-size: 1.25rem;
 	}
 
-	.ai-summary-popup-body {
+	.hwn-popup-body {
 		font-size: 0.875rem;
 	}
 
-	.ai-summary-share-btn {
+	.hwn-share-btn {
 		min-width: auto;
 		max-width: 100%;
 		font-size: 0.8125rem;
@@ -614,13 +614,13 @@
 	}
 
 	/* Ensure share icon is visible on small mobile screens */
-	.ai-summary-popup-share {
+	.hwn-popup-share {
 		top: 1rem;
 		left: 1rem;
 		z-index: 30; /* Higher z-index to ensure it's above other elements */
 	}
 
-	.ai-summary-popup-share-icon {
+	.hwn-popup-share-icon {
 		width: 40px;
 		height: 40px;
 		min-width: 40px;

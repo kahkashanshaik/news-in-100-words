@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Build script for AI Blog Summary WordPress Plugin
+# Build script for Hundred Words News WordPress Plugin
 # This script prepares the plugin for distribution by:
 # 1. Installing production dependencies only (no dev dependencies)
 # 2. Optimizing the Composer autoloader
@@ -9,7 +9,7 @@
 
 set -e
 
-echo "🔨 Building AI Blog Summary Plugin (Composer dependencies)..."
+echo "🔨 Building Hundred Words News Plugin (Composer dependencies)..."
 
 # Colors for output
 GREEN='\033[0;32m'
@@ -39,7 +39,7 @@ echo "Vendor folder size: ${VENDOR_SIZE}"
 echo ""
 echo "📦 Next steps:"
 echo "   1. Run 'npm run build' to build production assets"
-echo "   2. Create distribution zip: zip -r ai-blog-summary.zip . -x@.distignore"
+echo "   2. Create distribution zip: zip -r hundred-words-news.zip . -x@.distignore"
 echo ""
 echo "ℹ️  Note: Vendor folder is included (contains optimized autoloader)"
 echo "   Dev dependencies are excluded (PHPUnit, WPCS, etc.)"

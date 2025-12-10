@@ -1,7 +1,7 @@
 {
-  "name": "ai-blog-summary",
+  "name": "hundred-words-news",
   "version": "1.0.0",
-  "description": "AI Blog Summary Generator WordPress Plugin",
+  "description": "News in 100 Words WordPress Plugin",
   "type": "module",
   "scripts": {
     "dev": "vite",

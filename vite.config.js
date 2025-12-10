@@ -10,7 +10,7 @@ const PORT = parseInt(process.env.VITE_PORT || process.env.PORT || '3000', 10);
 export default defineConfig({
   plugins: [],
   root: path.resolve(__dirname),
-  base: '/wp-content/plugins/ai-blog-summary/',
+  base: '/wp-content/plugins/hundred-words-news/',
   build: {
     outDir: 'dist',
     emptyOutDir: true,

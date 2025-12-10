@@ -1,38 +1,38 @@
 /* Admin custom styles */
 
 /* Classic Editor Meta Box */
-#ai-blog-summary-classic-editor {
+#hwn-classic-editor {
 	margin-top: 1rem;
 }
 
-.ai-summary-field-wrapper {
+.hwn-summary-field-wrapper {
 	margin-bottom: 1rem;
 }
 
-.ai-summary-field-wrapper label {
+.hwn-summary-field-wrapper label {
 	display: block;
 	margin-bottom: 0.5rem;
 	font-weight: 600;
 }
 
-.ai-summary-actions {
+.hwn-summary-actions {
 	display: flex;
 	gap: 0.5rem;
 	margin-bottom: 1rem;
 }
 
-.ai-summary-show-icon {
+.hwn-summary-show-icon {
 	margin-bottom: 1rem;
 }
 
-.ai-summary-show-icon label {
+.hwn-summary-show-icon label {
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
 	cursor: pointer;
 }
 
-.ai-summary-status {
+.hwn-summary-status {
 	margin-top: 0.5rem;
 	min-height: 1.5rem;
 }
@@ -51,15 +51,15 @@
 }
 
 /* Gutenberg Panel */
-.ai-blog-summary-panel {
+.hwn-summary-panel {
 	padding: 1rem;
 }
 
-.ai-blog-summary-panel .components-textarea-control {
+.hwn-summary-panel .components-textarea-control {
 	margin-bottom: 1rem;
 }
 
-.ai-blog-summary-panel .components-button {
+.hwn-summary-panel .components-button {
 	margin-right: 0.5rem;
 }
 

@@ -141,7 +141,7 @@ class Thunderbolt
 		// Format summary
 		$summary_html = '';
 		if ($summary) {
-			$summary_lines = explode("\n", trim($summary));
+			$summary_lines = explode("\n", strip_tags(trim($summary)));
 			if (count($summary_lines) > 1) {
 				$summary_html = '<ul style="--bullet-color: ' . esc_attr($bullet_color) . '; font-size: ' . esc_attr($content_font_size) . ';">';
 				foreach ($summary_lines as $line) {

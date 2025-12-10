@@ -54,6 +54,10 @@ class Plugin {
 	 * @return void
 	 */
 	private function init(): void {
+
+		// plugin uninstall
+		register_uninstall_hook(__FILE__, array($this, 'plugin_uninstall'));
+
 		// Load textdomain.
 		add_action('plugins_loaded', array($this, 'load_textdomain'));
 
@@ -74,6 +78,17 @@ class Plugin {
 
 		// Initialize auto generator.
 		$this->init_auto_generator();
+	}
+
+	/**
+	 * Plugin uninstall
+	 *
+	 * @return void
+	 */
+	public function plugin_uninstall(): void {
+		// TODO: comment code for future enhancements
+		// delete plugin options
+		// delete_option('hundred_words_news_settings');
 	}
 
 	/**

@@ -4,8 +4,8 @@ import '../css/index.css';
 (function() {
 	'use strict';
 
-	const apiUrl = window.aiBlogSummaryFrontend?.apiUrl || '';
-	const nonce = window.aiBlogSummaryFrontend?.nonce || '';
+	const apiUrl = window.hundredWordsNewsFrontend?.apiUrl || '';
+	const nonce = window.hundredWordsNewsFrontend?.nonce || '';
 
 	// Build share URLs
 	function buildShareUrl(platform, url, title) {
@@ -44,7 +44,7 @@ import '../css/index.css';
 		if (navigator.clipboard && navigator.clipboard.writeText) {
 			navigator.clipboard.writeText(text).then(() => {
 				// Show feedback (you can add a toast notification here)
-				const linkBtn = document.querySelector('.ai-summary-share-link');
+				const linkBtn = document.querySelector('.hwn-share-link');
 				if (linkBtn) {
 					const originalText = linkBtn.querySelector('span').textContent;
 					linkBtn.querySelector('span').textContent = 'Copied!';
@@ -66,18 +66,18 @@ import '../css/index.css';
 
 	// Initialize popup
 	function initPopup() {
-		const popup = document.getElementById('ai-summary-popup');
-		const overlay = popup?.querySelector('.ai-summary-popup-overlay');
-		const closeBtn = popup?.querySelector('.ai-summary-popup-close');
-		const body = popup?.querySelector('.ai-summary-popup-body');
-		const title = popup?.querySelector('.ai-summary-popup-title');
-		const date = popup?.querySelector('.ai-summary-popup-date');
-		const image = popup?.querySelector('#ai-summary-popup-img');
-		const readMoreBtn = popup?.querySelector('.ai-summary-popup-readmore');
-		const shareContainer = popup?.querySelector('.ai-summary-popup-share');
-		const shareButtons = popup?.querySelectorAll('.ai-summary-share-btn');
-		const infoIcon = popup?.querySelector('.ai-summary-popup-info-icon');
-		const linkBtn = popup?.querySelector('.ai-summary-share-link');
+		const popup = document.getElementById('hwn-popup');
+		const overlay = popup?.querySelector('.hwn-popup-overlay');
+		const closeBtn = popup?.querySelector('.hwn-popup-close');
+		const body = popup?.querySelector('.hwn-popup-body');
+		const title = popup?.querySelector('.hwn-popup-title');
+		const date = popup?.querySelector('.hwn-popup-date');
+		const image = popup?.querySelector('#hwn-popup-img');
+		const readMoreBtn = popup?.querySelector('.hwn-popup-readmore');
+		const shareContainer = popup?.querySelector('.hwn-popup-share');
+		const shareButtons = popup?.querySelectorAll('.hwn-share-btn');
+		const infoIcon = popup?.querySelector('.hwn-popup-info-icon');
+		const linkBtn = popup?.querySelector('.hwn-share-link');
 
 		if (!popup || !overlay || !closeBtn || !body || !title || !date || !readMoreBtn) return;
 
@@ -114,7 +114,7 @@ import '../css/index.css';
 			// Update share button URLs
 			if (shareButtons && permalink && postTitle) {
 				shareButtons.forEach(btn => {
-					const platform = btn.className.match(/ai-summary-share-(\w+)/)?.[1];
+					const platform = btn.className.match(/hwn-share-(\w+)/)?.[1];
 					if (platform && platform !== 'link') {
 						const shareUrl = buildShareUrl(platform, permalink, postTitle);
 						// Use setAttribute to ensure href is properly set
@@ -134,7 +134,7 @@ import '../css/index.css';
 
 			// Show popup
 			popup.setAttribute('aria-hidden', 'false');
-			popup.classList.add('ai-summary-popup-active');
+			popup.classList.add('hwn-popup-active');
 			document.body.style.overflow = 'hidden';
 
 			// Track interaction
@@ -154,7 +154,7 @@ import '../css/index.css';
 
 		function closePopup() {
 			popup.setAttribute('aria-hidden', 'true');
-			popup.classList.remove('ai-summary-popup-active');
+			popup.classList.remove('hwn-popup-active');
 			document.body.style.overflow = '';
 			
 			// Reset content
@@ -174,14 +174,14 @@ import '../css/index.css';
 
 		// ESC key handler
 		document.addEventListener('keydown', function(e) {
-			if (e.key === 'Escape' && popup.classList.contains('ai-summary-popup-active')) {
+			if (e.key === 'Escape' && popup.classList.contains('hwn-popup-active')) {
 				closePopup();
 			}
 		});
 
 		// Share buttons hover effect - share icon is always visible, buttons appear on hover
 		if (shareContainer) {
-			const shareButtons = shareContainer.querySelector('.ai-summary-popup-share-buttons');
+			const shareButtons = shareContainer.querySelector('.hwn-popup-share-buttons');
 			let hideTimeout = null;
 			
 			// Show share buttons on hover over container (icon)
@@ -190,7 +190,7 @@ import '../css/index.css';
 					clearTimeout(hideTimeout);
 					hideTimeout = null;
 				}
-				shareContainer.classList.add('ai-summary-popup-share-active');
+				shareContainer.classList.add('hwn-popup-share-active');
 			});
 			
 			// Hide share buttons when mouse leaves the container
@@ -202,7 +202,7 @@ import '../css/index.css';
 				}
 				// Delay hiding to allow smooth transition
 				hideTimeout = setTimeout(function() {
-					shareContainer.classList.remove('ai-summary-popup-share-active');
+					shareContainer.classList.remove('hwn-popup-share-active');
 				}, 150);
 			});
 			
@@ -213,7 +213,7 @@ import '../css/index.css';
 						clearTimeout(hideTimeout);
 						hideTimeout = null;
 					}
-					shareContainer.classList.add('ai-summary-popup-share-active');
+					shareContainer.classList.add('hwn-popup-share-active');
 				});
 				
 				shareButtons.addEventListener('mouseleave', function(e) {
@@ -223,7 +223,7 @@ import '../css/index.css';
 						return;
 					}
 					hideTimeout = setTimeout(function() {
-						shareContainer.classList.remove('ai-summary-popup-share-active');
+						shareContainer.classList.remove('hwn-popup-share-active');
 					}, 150);
 				});
 			}
@@ -245,7 +245,7 @@ import '../css/index.css';
 		if (shareButtons) {
 			shareButtons.forEach(btn => {
 				// Skip copy link button as it's handled separately
-				if (btn.classList.contains('ai-summary-share-link')) {
+				if (btn.classList.contains('hwn-share-link')) {
 					return;
 				}
 				
@@ -269,7 +269,7 @@ import '../css/index.css';
 		if (shareButtons) {
 			shareButtons.forEach(btn => {
 				// Only handle copy link button specially
-				if (btn.classList.contains('ai-summary-share-link')) {
+				if (btn.classList.contains('hwn-share-link')) {
 					// Already handled above
 					return;
 				}
@@ -293,22 +293,22 @@ import '../css/index.css';
 		// Info icon tooltip
 		if (infoIcon) {
 			infoIcon.addEventListener('mouseenter', function() {
-				const tooltip = infoIcon.querySelector('.ai-summary-popup-tooltip');
+				const tooltip = infoIcon.querySelector('.hwn-popup-tooltip');
 				if (tooltip) {
-					tooltip.classList.add('ai-summary-popup-tooltip-visible');
+					tooltip.classList.add('hwn-popup-tooltip-visible');
 				}
 			});
 			infoIcon.addEventListener('mouseleave', function() {
-				const tooltip = infoIcon.querySelector('.ai-summary-popup-tooltip');
+				const tooltip = infoIcon.querySelector('.hwn-popup-tooltip');
 				if (tooltip) {
-					tooltip.classList.remove('ai-summary-popup-tooltip-visible');
+					tooltip.classList.remove('hwn-popup-tooltip-visible');
 				}
 			});
 		}
 
 		// Handle icon clicks
 		document.addEventListener('click', function(e) {
-			const icon = e.target.closest('.ai-summary-icon');
+			const icon = e.target.closest('.hwn-icon');
 			if (icon) {
 				e.preventDefault();
 				const summary = icon.getAttribute('data-summary');
@@ -328,7 +328,7 @@ import '../css/index.css';
 		// Handle keyboard navigation
 		document.addEventListener('keydown', function(e) {
 			const icon = document.activeElement;
-			if (icon && icon.classList.contains('ai-summary-icon') && (e.key === 'Enter' || e.key === ' ')) {
+			if (icon && icon.classList.contains('hwn-icon') && (e.key === 'Enter' || e.key === ' ')) {
 				e.preventDefault();
 				const summary = icon.getAttribute('data-summary');
 				const postId = icon.getAttribute('data-post-id');

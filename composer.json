@@ -1,12 +1,12 @@
 {
-  "name": "ai-blog-summary/ai-blog-summary",
-  "description": "AI Blog Summary Generator WordPress Plugin",
+  "name": "hundred-words-news/hundred-words-news",
+  "description": "News in 100 Words WordPress Plugin",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
   "authors": [
     {
-      "name": "Your Name",
-      "email": "your.email@example.com"
+      "name": "kahkashan",
+      "email": "kahkashan1507@gmail.com"
     }
   ],
   "require": {
@@ -18,12 +18,12 @@
   },
   "autoload": {
     "psr-4": {
-      "AI_Blog_Summary\\": "includes/"
+      "Hundred_Words_News\\": "includes/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "AI_Blog_Summary\\Tests\\": "tests/"
+      "Hundred_Words_News\\Tests\\": "tests/"
     }
   },
   "config": {
