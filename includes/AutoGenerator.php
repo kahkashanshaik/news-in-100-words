@@ -96,7 +96,7 @@ class AutoGenerator {
 
 		// Get post content.
 		$content = $post->post_title . "\n\n" . $post->post_content;
-		$content = wp_strip_all_tags($content);
+		$content = $this->clean_content_for_ai($content);
 
 		if (empty($content)) {
 			return;
@@ -120,6 +120,48 @@ class AutoGenerator {
 			// Log error.
 			error_log('AI Summary Auto-Generation Error for Post ' . $post_id . ': ' . $result['error']);
 		}
+	}
+
+	/**
+	 * Clean content for AI processing
+	 * Removes images, iframes, and other media elements before stripping tags
+	 *
+	 * @param string $content Raw post content.
+	 * @return string Cleaned text content.
+	 */
+	private function clean_content_for_ai(string $content): string {
+		// Remove iframes (YouTube, Vimeo, embeds, etc.)
+		$content = preg_replace('/<iframe[^>]*>.*?<\/iframe>/is', '', $content);
+		
+		// Remove images (img tags)
+		$content = preg_replace('/<img[^>]*>/i', '', $content);
+		
+		// Remove picture elements (which may contain img tags)
+		$content = preg_replace('/<picture[^>]*>.*?<\/picture>/is', '', $content);
+		
+		// Remove video tags
+		$content = preg_replace('/<video[^>]*>.*?<\/video>/is', '', $content);
+		
+		// Remove audio tags
+		$content = preg_replace('/<audio[^>]*>.*?<\/audio>/is', '', $content);
+		
+		// Remove embed tags
+		$content = preg_replace('/<embed[^>]*>/i', '', $content);
+		
+		// Remove object tags (often used for embeds)
+		$content = preg_replace('/<object[^>]*>.*?<\/object>/is', '', $content);
+		
+		// Remove shortcodes that might contain media (optional - you may want to keep some)
+		// $content = strip_shortcodes($content);
+		
+		// Strip all remaining HTML tags and get plain text
+		$content = wp_strip_all_tags($content);
+		
+		// Clean up extra whitespace
+		$content = preg_replace('/\s+/', ' ', $content);
+		$content = trim($content);
+		
+		return $content;
 	}
 }
 
