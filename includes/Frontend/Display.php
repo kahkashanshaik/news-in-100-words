@@ -160,6 +160,13 @@ class Display
 		}
 
 		$summary = $this->summary_manager->get_summary($post_id);
+		
+		// Safety check: ensure summary exists and is not empty.
+		if (empty($summary)) {
+			unset(self::$processing[$post_id]);
+			return $title;
+		}
+		
 		$settings = $this->settings->get_all();
 		$icon_size = $settings['icon_size'] ?? 'medium';
 		$icon_color = $settings['icon_color'] ?? '#3b82f6';

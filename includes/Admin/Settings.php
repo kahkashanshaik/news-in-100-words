@@ -92,7 +92,6 @@ class Settings {
 		$sanitized = array();
 
 		foreach ($settings as $key => $value) {
-			// Handle nested arrays (like thunderbolt)
 			if (is_array($value)) {
 				$sanitized[ $key ] = $this->sanitize($value);
 				continue;

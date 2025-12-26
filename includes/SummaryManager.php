@@ -169,21 +169,32 @@ class SummaryManager {
 	 * @return array
 	 */
 	public function get_global_stats(): array {
-		global $wpdb;
-
-		$total_posts_with_summary = $wpdb->get_var(
-			$wpdb->prepare(
-				"SELECT COUNT(DISTINCT post_id) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value != ''",
-				self::META_SUMMARY
-			)
+		// Use get_posts and get_post_meta rather than direct DB queries.
+		$args = array(
+			'post_type'      => 'any',
+			'posts_per_page' => -1,
+			'post_status'    => 'any',
+			'fields'         => 'ids',
+			'meta_query'     => array(
+				array(
+					'key'     => self::META_SUMMARY,
+					'value'   => '',
+					'compare' => '!=',
+				),
+			),
 		);
+		$summary_post_ids = get_posts($args);
+		$total_posts_with_summary = count($summary_post_ids);
 
-		$total_clicks = $wpdb->get_var(
-			$wpdb->prepare(
-				"SELECT SUM(CAST(meta_value AS UNSIGNED)) FROM {$wpdb->postmeta} WHERE meta_key = %s",
-				self::META_SUMMARY_CLICKS
-			)
-		);
+		$total_clicks = 0;
+		if (!empty($summary_post_ids)) {
+			foreach ($summary_post_ids as $post_id) {
+				$clicks = get_post_meta($post_id, self::META_SUMMARY_CLICKS, true);
+				if (is_numeric($clicks)) {
+					$total_clicks += (int) $clicks;
+				}
+			}
+		}
 
 		return array(
 			'total_posts_with_summary' => (int) $total_posts_with_summary,

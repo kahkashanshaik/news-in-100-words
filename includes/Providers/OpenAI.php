@@ -124,8 +124,24 @@ Return only the bullet points.',
 			);
 		}
 
+		// Validate response structure.
+		if (! is_array($response) || ! isset($response['choices']) || ! is_array($response['choices']) || empty($response['choices'])) {
+			return array(
+				'success' => false,
+				'error'   => 'Invalid API response structure',
+			);
+		}
+
 		$summary = $response['choices'][0]['message']['content'] ?? '';
 		$summary = trim($summary);
+
+		// Check if summary is empty.
+		if (empty($summary)) {
+			return array(
+				'success' => false,
+				'error'   => 'API returned empty summary',
+			);
+		}
 
 		// Format summary as bullet points
 		// Split by newlines and format each line as a bullet point
@@ -218,7 +234,16 @@ Return only the bullet points.',
 				}
 			}
 
-			$error_message = $body_data['error']['message'] ?? 'Unknown error';
+			// Handle error response.
+			$error_message = 'Unknown error';
+			if (is_array($body_data) && isset($body_data['error']['message'])) {
+				$error_message = $body_data['error']['message'];
+			} elseif (is_array($body_data) && isset($body_data['error'])) {
+				$error_message = is_string($body_data['error']) ? $body_data['error'] : 'API error occurred';
+			} elseif (! is_array($body_data)) {
+				$error_message = 'Invalid API response format';
+			}
+			
 			return new \WP_Error('api_error', $error_message);
 		}
 

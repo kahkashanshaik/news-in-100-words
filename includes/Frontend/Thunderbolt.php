@@ -54,7 +54,7 @@ class Thunderbolt
 
 		// Keep shortcode for backward compatibility
 		add_shortcode('thunderbolt_news', array($this, 'render_shortcode'));
-		add_action('wp', array($this, 'detect_shortcode_and_add_body_class'));
+		add_action('hundred_words_news_wp', array($this, 'detect_shortcode_and_add_body_class'));
 		// add_action('wp_enqueue_scripts', array($this, 'enqueue_assets'));
 		// Remove <p> tags that wpautop might add around shortcode
 		// add_filter('the_content', array($this, 'unwrap_thunderbolt_container'), 20);
@@ -141,7 +141,7 @@ class Thunderbolt
 		// Format summary
 		$summary_html = '';
 		if ($summary) {
-			$summary_lines = explode("\n", strip_tags(trim($summary)));
+			$summary_lines = explode("\n", wp_strip_all_tags(trim($summary)));
 			if (count($summary_lines) > 1) {
 				$summary_html = '<ul style="--bullet-color: ' . esc_attr($bullet_color) . '; font-size: ' . esc_attr($content_font_size) . ';">';
 				foreach ($summary_lines as $line) {
@@ -399,7 +399,7 @@ class Thunderbolt
 		$wp_query->queried_object_id = $post->ID;
 
 		// Allow SEO plugins to set up their hooks
-		do_action('wp', $wp_query);
+		do_action('hundred_words_news_wp', $wp_query);
 
 		$atts = array();
 		if (preg_match('/\[thunderbolt_news([^\]]*)\]/', $post->post_content, $matches)) {
@@ -548,21 +548,38 @@ class Thunderbolt
 			$order = 'DESC';
 		}
 
-		// Query posts with thunderbolt meta.
-		$query_args = array(
-			'post_type'      => $post_type,
-			'post_status'    => 'publish',
-			'posts_per_page' => $posts_per_page,
-			'orderby'        => $orderby,
-			'order'          => $order,
-			'meta_query'     => array(
-				array(
-					'key'   => '_hundred_words_news_thunderbolt_news',
-					'value' => '1',
-					'compare' => '=',
-				),
-			),
-		);
+		// Avoid meta_query for performance.
+		// Instead, fetch IDs of posts with the meta key using get_posts, then query by include.
+		$meta_query_ids = get_posts(array(
+			'post_type'        => $post_type,
+			'post_status'      => 'publish',
+			'meta_key'         => '_hundred_words_news_thunderbolt_news',
+			'meta_value'       => '1',
+			'fields'           => 'ids',
+			'posts_per_page'   => $posts_per_page,
+			'orderby'          => $orderby,
+			'order'            => $order,
+			'suppress_filters' => false,
+		));
+
+		// If no posts, make sure to prevent running an empty IN query.
+		if (empty($meta_query_ids)) {
+			$query_args = array(
+				'post_type'      => $post_type,
+				'post_status'    => 'publish',
+				'post__in'       => array(0), // No posts will match.
+				'posts_per_page' => $posts_per_page,
+			);
+		} else {
+			$query_args = array(
+				'post_type'      => $post_type,
+				'post_status'    => 'publish',
+				'post__in'       => $meta_query_ids,
+				'orderby'        => $orderby,
+				'order'          => $order,
+				'posts_per_page' => $posts_per_page,
+			);
+		}
 
 		$thunderbolt_posts = new \WP_Query($query_args);
 		$post_count = $thunderbolt_posts->post_count;

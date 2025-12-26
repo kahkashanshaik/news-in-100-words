@@ -145,40 +145,50 @@ class Gutenberg {
 	 * @return void
 	 */
 	public function save_meta_box(int $post_id, \WP_Post $post): void {
-		// Verify nonce.
-		if (! isset($_POST['hundred_words_news_nonce']) || 
-			 ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['hundred_words_news_nonce'])), 'hundred_words_news_meta_box')) {
+		if (! $post_id || $post_id <= 0) {
 			return;
 		}
 
-		// Check autosave.
+		if (! $post || ! is_object($post) || ! isset($post->post_type)) {
+			return;
+		}
+
+		if (wp_is_post_revision($post_id) || wp_is_post_autosave($post_id)) {
+			return;
+		}
+
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
 			return;
 		}
 
-		// Check permissions.
+		if ('post' !== $post->post_type) {
+			return;
+		}
+
 		if (! current_user_can('edit_post', $post_id)) {
 			return;
 		}
 
-		// Save summary.
-		if (isset($_POST['hwn_post_summary'])) {
-			$summary = wp_kses_post(wp_unslash($_POST['hwn_post_summary']));
-			if (! empty($summary)) {
-				$this->summary_manager->save_summary($post_id, $summary);
-			} else {
-				// If empty, delete the summary.
-				delete_post_meta($post_id, '_hundred_words_news_post_summary');
+		if (isset($_POST['hundred_words_news_nonce'])) {
+			if (! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['hundred_words_news_nonce'])), 'hundred_words_news_meta_box')) {
+				return;
 			}
+			
+			if (isset($_POST['hwn_post_summary'])) {
+				$summary = wp_kses_post(wp_unslash($_POST['hwn_post_summary']));
+				if (! empty($summary)) {
+					$this->summary_manager->save_summary($post_id, $summary);
+				} else {
+					delete_post_meta($post_id, '_hundred_words_news_post_summary');
+				}
+			}
+
+			$show_icon = isset($_POST['hundred_words_news_show_summary_icon']) ? true : false;
+			$this->summary_manager->set_show_icon($post_id, $show_icon);
+
+			$thunderbolt_news = isset($_POST['hundred_words_news_thunderbolt_news']) ? true : false;
+			update_post_meta($post_id, '_hundred_words_news_thunderbolt_news', $thunderbolt_news ? '1' : '0');
 		}
-
-		// Save show icon setting.
-		$show_icon = isset($_POST['hundred_words_news_show_summary_icon']) ? true : false;
-		$this->summary_manager->set_show_icon($post_id, $show_icon);
-
-		// Save thunderbolt news setting.
-		$thunderbolt_news = isset($_POST['hundred_words_news_thunderbolt_news']) ? true : false;
-		update_post_meta($post_id, '_hundred_words_news_thunderbolt_news', $thunderbolt_news ? '1' : '0');
 	}
 
 	/**

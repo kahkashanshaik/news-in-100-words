@@ -1,17 +1,18 @@
 <?php
 /**
  * Plugin Name: News in 100 Words
- * Plugin URI: https://kahkashan.live/wordpress-plugins/hundred-words-news
- * Description: Automatically generates 100 words news for your WordPress posts.
+ * Plugin URI: https://wordpress.org/plugins/news-in-100-words/
+ * Description: Automatically generates AI-powered 100-word news summaries for WordPress posts with universal editor support, front-end display, and Thunderbolt news feature.
  * Version: 1.0.0
  * Requires at least: 5.9
  * Requires PHP: 7.4
  * Author: Kahkashan
  * Author URI: https://kahkashan.live
- * License: GPL v2 or later
+ * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:  
+ * Text Domain: hundred-words-news
  * Domain Path: /languages
+ * Network: true
  */
 
 declare(strict_types=1);

@@ -45,8 +45,8 @@ class SettingsPage {
 	 */
 	public function add_menu_page(): void {
 		add_menu_page(
-			__('Hundred Words News', 'hundred-words-news'),
-			__('Hundred Words News', 'hundred-words-news'),
+			__('100 Words News', 'hundred-words-news'),
+			__('100 Words News', 'hundred-words-news'),
 			'manage_options',
 			'hundred-words-news',
 			array($this, 'render_page'),
@@ -127,12 +127,11 @@ class SettingsPage {
 	 */
 	public function render_page(): void {
 		if (isset($_POST['submit']) && check_admin_referer('hundred_words_news_settings')) {
-			$input_settings = $_POST['hundred_words_news_settings'] ?? array();
-			// Use sanitize_settings to properly handle nested arrays
+			$input_settings = isset($_POST['hundred_words_news_settings']) && is_array($_POST['hundred_words_news_settings'])
+				? array_map('sanitize_text_field', wp_unslash($_POST['hundred_words_news_settings']))
+				: array();
 			$sanitized_settings = $this->sanitize_settings($input_settings);
-			// Merge with existing settings to preserve any settings not in the form
 			$existing_settings = $this->settings->get_all();
-			// array_merge will replace nested arrays (like thunderbolt) with the new values.
 			$new_settings = array_merge($existing_settings, $sanitized_settings);
 			$this->settings->save($new_settings);
 			echo '<div class="notice notice-success"><p>' . esc_html__('Settings saved.', 'hundred-words-news') . '</p></div>';

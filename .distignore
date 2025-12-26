@@ -68,3 +68,19 @@ CHANGELOG.md
 # Build script
 build.sh
 
+# src directory
+src/
+
+# avoid .git
+.git/
+.gitignore
+.gitattributes
+.cursorrules
+.instructions.md
+.phpunit.result.cache
+.phpunit.xml
+.phpunit.xml.dist
+.phpunit.xml.php
+.phpunit.xml.php.dist
+.phpunit.xml.php.php
+

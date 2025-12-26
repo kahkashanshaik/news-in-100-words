@@ -60,17 +60,32 @@ class AutoGenerator {
 	 * @return void
 	 */
 	public function maybe_generate_summary(int $post_id, \WP_Post $post): void {
+		// Validate post ID.
+		if (! $post_id || $post_id <= 0) {
+			return;
+		}
+
+		// Validate post object.
+		if (! $post || ! is_object($post) || ! isset($post->post_type)) {
+			return;
+		}
+
 		// Skip autosaves and revisions.
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
 			return;
 		}
 
-		if (wp_is_post_revision($post_id)) {
+		if (wp_is_post_revision($post_id) || wp_is_post_autosave($post_id)) {
 			return;
 		}
 
 		// Only generate for published posts.
 		if ('publish' !== $post->post_status) {
+			return;
+		}
+
+		// Only generate for post type 'post'.
+		if ('post' !== $post->post_type) {
 			return;
 		}
 
@@ -118,7 +133,7 @@ class AutoGenerator {
 			$this->summary_manager->save_language($post_id, $this->settings->get_default_language());
 		} else {
 			// Log error.
-			error_log('AI Summary Auto-Generation Error for Post ' . $post_id . ': ' . $result['error']);
+			// error_log('AI Summary Auto-Generation Error for Post ' . $post_id . ': ' . $result['error']);
 		}
 	}
 

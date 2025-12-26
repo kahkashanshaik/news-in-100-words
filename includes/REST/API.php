@@ -110,18 +110,39 @@ class API {
 			return new \WP_Error('invalid_nonce', 'Invalid nonce', array('status' => 403));
 		}
 
-		$post_id  = $request->get_param('post_id');
-		$length   = $request->get_param('length');
-		$language = $request->get_param('language');
+		$post_id  = absint($request->get_param('post_id'));
+		$length   = sanitize_text_field($request->get_param('length') ?? 'medium');
+		$language = sanitize_text_field($request->get_param('language') ?? 'en');
+
+		// Validate post_id.
+		if (! $post_id || $post_id <= 0) {
+			return new \WP_Error('invalid_post', 'Invalid post ID', array('status' => 400));
+		}
 
 		$post = get_post($post_id);
 		if (! $post) {
-			return new \WP_Error('invalid_post', 'Invalid post ID', array('status' => 400));
+			return new \WP_Error('invalid_post', 'Post not found', array('status' => 404));
+		}
+
+		// Check if user can edit this post.
+		if (! current_user_can('edit_post', $post_id)) {
+			return new \WP_Error('forbidden', 'You do not have permission to edit this post', array('status' => 403));
+		}
+
+		// Validate length parameter.
+		$valid_lengths = array('short', 'medium', 'large');
+		if (! in_array($length, $valid_lengths, true)) {
+			$length = 'medium';
 		}
 
 		// Get post content.
 		$content = $post->post_title . "\n\n" . $post->post_content;
 		$content = $this->clean_content_for_ai($content);
+
+		// Check if content is empty after cleaning.
+		if (empty(trim($content))) {
+			return new \WP_Error('empty_content', 'Post content is empty or contains no text', array('status' => 400));
+		}
 
 		// Get provider settings.
 		$provider_name = $this->settings->get_provider();
@@ -153,7 +174,7 @@ class API {
 
 		if (! $result['success']) {
 			// Log error.
-			error_log('AI Summary Generation Error: ' . $result['error']);
+			// error_log('AI Summary Generation Error: ' . $result['error']);
 			return new \WP_Error('generation_failed', $result['error'], array('status' => 500));
 		}
 
@@ -183,10 +204,15 @@ class API {
 			return new \WP_Error('invalid_nonce', 'Invalid nonce', array('status' => 403));
 		}
 
-		$post_id = $request->get_param('post_id');
+		$post_id = absint($request->get_param('post_id'));
+
+		// Validate post_id.
+		if (! $post_id || $post_id <= 0) {
+			return new \WP_Error('invalid_post', 'Invalid post ID', array('status' => 400));
+		}
 
 		if (! get_post($post_id)) {
-			return new \WP_Error('invalid_post', 'Invalid post ID', array('status' => 400));
+			return new \WP_Error('invalid_post', 'Post not found', array('status' => 404));
 		}
 
 		$count = $this->summary_manager->increment_clicks($post_id);
