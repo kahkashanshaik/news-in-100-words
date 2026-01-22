@@ -1,5 +1,4 @@
 // Thunderbolt JavaScript entry point
-import '../css/thunderbolt.css';
 
 (function ($) {
 	$(document).ready(function () {

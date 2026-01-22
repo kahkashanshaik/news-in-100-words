@@ -88,7 +88,7 @@ class Plugin {
 	 * @return array
 	 */
 	public function add_settings_link(array $links): array {
-		$settings_link = '<a href="admin.php?page=hundred-words-news">' . __('Settings', 'hundred-words-news') . '</a>';
+		$settings_link = '<a href="admin.php?page=news-in-100-words">' . __('Settings', 'news-in-100-words') . '</a>';
 		$links[] = $settings_link;
 		return $links;
 	}

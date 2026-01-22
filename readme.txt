@@ -1,15 +1,15 @@
 === News in 100 Words ===
-Contributors: kahkashan
+Contributors: kahkashan1507
 Tags: hundred-word-news, ai, gutenberg, classic-editor, openai
 Requires at least: 5.9
-Tested up to: 6.5 < 6.9
-Stable tag: 1.0.0
+Tested up to: 6.9
+Stable tag: 1.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://kahkashan.live
 
-Automatically generates AI-powered 100-word news summaries for WordPress posts with universal editor support, beautiful front-end display, and Thunderbolt news carousel feature.
+Automatically generates AI-powered 100-word news summaries for WordPress posts with editor support, front-end display, and Thunderbolt carousel.
 
 == Description ==
 
@@ -55,6 +55,8 @@ News in 100 Words is a powerful WordPress plugin that automatically generates co
 * **Multi-Language Support**
   * Generate summaries in multiple languages:
     * English
+    * Arabic (العربية)
+    * Hindi (हिन्दी)
     * Kannada (ಕನ್ನಡ)
   * send a request or comment to add new language
 
@@ -135,8 +137,8 @@ News in 100 Words is a powerful WordPress plugin that automatically generates co
 
 = Step 2: Configure API Settings =
 
-1. After activation, you'll see a new menu item **"Hundred Words News"** in your WordPress admin sidebar
-2. Click on **Hundred Words News** to open the settings page
+1. After activation, you'll see a new menu item **"News in 100 Words"** in your WordPress admin sidebar
+2. Click on **News in 100 Words** to open the settings page
 3. Navigate to the **API & Model** tab
 4. Get your OpenAI API key:
    * Visit https://platform.openai.com/api-keys
@@ -187,7 +189,7 @@ News in 100 Words is a powerful WordPress plugin that automatically generates co
 = Step 5: Generate Your First Summary =
 
 1. Edit any existing post or create a new post
-2. In the post editor (Gutenberg or Classic), scroll down to find the **"Hundred Words News"** meta box
+2. In the post editor (Gutenberg or Classic), scroll down to find the **"News in 100 Words"** meta box
 3. Click the **"Generate News"** button
 4. Wait a few seconds for the AI to generate the summary
 5. Review the generated summary in the editor
@@ -201,10 +203,10 @@ News in 100 Words is a powerful WordPress plugin that automatically generates co
 = Step 6: Create Thunderbolt News Page (Optional) =
 
 1. Create a new page in WordPress
-2. Add the shortcode `[thunderbolt_news]` to the page content
+2. Add the shortcode `[hundred_words_news_thunderbolt]` to the page content
 3. Optionally customize the shortcode:
-   * `[thunderbolt_news posts="10"]` - Show 10 posts
-   * `[thunderbolt_news posts="5" orderby="date" order="DESC"]` - Custom query
+   * `[hundred_words_news_thunderbolt posts="10"]` - Show 10 posts
+   * `[hundred_words_news_thunderbolt posts="5" orderby="date" order="DESC"]` - Custom query
 4. Publish the page
 5. Visit the page to see your Thunderbolt news carousel
 6. Only posts with "Add news to thunderbolt" checked will appear
@@ -251,6 +253,40 @@ The limit depends on your OpenAI API plan. The plugin includes rate limiting and
 
 Yes, you can disable auto-generation in the settings and only generate summaries manually when needed.
 
+== External Services ==
+
+This plugin connects to the OpenAI API to generate AI-powered summaries of your blog posts and news articles. The summaries are needed to display concise content previews in the lightning bolt icon popup and Thunderbolt news carousel.
+
+**What data is sent and when:**
+
+The plugin sends the following data to OpenAI's API (https://api.openai.com/v1/chat/completions):
+
+* **Post content**: The full title and body content of your WordPress post/article
+* **API key**: Your OpenAI API key (sent in the Authorization header for authentication)
+* **Model selection**: The AI model you've selected (GPT-3.5 Turbo, GPT-4, or GPT-4 Turbo)
+* **Language preference**: The language you want the summary generated in (English, Arabic, Hindi, or Kannada)
+* **Length preference**: Your preferred summary length (short, medium, or large)
+* **Generation parameters**: Temperature and token limits for the AI response
+
+**When data is sent:**
+
+* **Manual generation**: When you click the "Generate News" button in the WordPress post editor (Gutenberg or Classic Editor)
+* **Automatic generation**: When auto-generation is enabled in settings and a post is published for the first time (only if no summary already exists for that post)
+
+**Important notes:**
+
+* The plugin only sends data when you actively generate a summary or when auto-generation is enabled and a post is published
+* Post content is sent only for the specific post you're generating a summary for
+* Your API key is stored securely in WordPress options and is only sent to OpenAI's servers for authentication
+* Summaries are cached locally in your WordPress database after generation, so the API is not called again for the same post unless you regenerate the summary
+* The plugin includes rate limiting and retry logic to respect API limits
+
+**Service provider information:**
+
+This service is provided by OpenAI, L.L.C.:
+* Terms of Service: https://openai.com/policies/terms-of-use
+* Privacy Policy: https://openai.com/policies/privacy-policy
+
 == Screenshots ==
 
 1. Admin settings page with API configuration
@@ -264,6 +300,15 @@ Yes, you can disable auto-generation in the settings and only generate summaries
 9. Settings - Thunderbolt page customization
 
 == Changelog ==
+
+= 1.0.1 =
+* Security improvements: Enhanced sanitization for all settings fields
+* Security improvements: Improved REST API permission callbacks with per-post capability checks
+* Security improvements: Proper escaping for filter callbacks (the_title filter)
+* Standards compliance: Updated shortcode name to use proper prefix (hundred_words_news_thunderbolt)
+* Standards compliance: Updated JavaScript object names to use consistent prefixes
+* Documentation: Added comprehensive external services documentation for OpenAI API usage
+* Code quality: Improved input validation and sanitization using WordPress best practices
 
 = 1.0.0 =
 * Initial release
@@ -282,6 +327,9 @@ Yes, you can disable auto-generation in the settings and only generate summaries
 
 == Upgrade Notice ==
 
+= 1.0.1 =
+Security and standards compliance update. This version includes enhanced sanitization, improved permission checks, and proper escaping. The Thunderbolt shortcode name has been updated to `[hundred_words_news_thunderbolt]` for better compatibility. Please update any pages using the old shortcode name.
+
 = 1.0.0 =
 Initial release of News in 100 Words. Install and configure your OpenAI API key to start generating summaries.
 
@@ -290,8 +338,6 @@ Initial release of News in 100 Words. Install and configure your OpenAI API key 
 This plugin uses:
 * PSR-4 autoloading via Composer
 * WordPress REST API for AJAX operations
-* Modern JavaScript (ES6+) compiled with Vite
-* Tailwind CSS for styling
 * WordPress Coding Standards
 
 For developers: The plugin follows WordPress best practices and is fully extensible through hooks and filters.

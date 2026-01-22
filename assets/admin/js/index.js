@@ -1,9 +1,19 @@
 // Admin JavaScript entry point
 // Works for both Classic and Gutenberg editors
-import '../css/index.css';
 
 if (typeof jQuery !== 'undefined') {
 	jQuery(document).ready(function($) {
+		
+		// Handle tab navigation
+		$('.nav-tab').on('click', function(e) {
+			e.preventDefault();
+			var target = $(this).attr('href');
+			$('.nav-tab').removeClass('nav-tab-active');
+			$(this).addClass('nav-tab-active');
+			$('.tab-content').hide();
+			$(target).show();
+		});
+		
 		// Support both classic and gutenberg editor containers
 		const $container = $('#hwn-classic-editor, #hwn-gutenberg-editor');
 		if ($container.length === 0) return;
@@ -53,6 +63,7 @@ if (typeof jQuery !== 'undefined') {
 				},
 			});
 		});
+		
 	});
 }
 

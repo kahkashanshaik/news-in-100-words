@@ -47,12 +47,12 @@ class API {
 	 */
 	public function register_routes(): void {
 		register_rest_route(
-			'hundred-words-news/v1',
+			'news-in-100-words/v1',
 			'/generate',
 			array(
 				'methods'             => 'POST',
 				'callback'            => array($this, 'generate_summary'),
-				'permission_callback' => array($this, 'check_logged_in_permission'),
+				'permission_callback' => array($this, 'check_edit_post_permission'),
 				'args'                => array(
 					'post_id'  => array(
 						'required' => true,
@@ -71,7 +71,7 @@ class API {
 		);
 
 		register_rest_route(
-			'hundred-words-news/v1',
+			'news-in-100-words/v1',
 			'/track',
 			array(
 				'methods'             => 'POST',
@@ -87,7 +87,7 @@ class API {
 		);
 
 		register_rest_route(
-			'hundred-words-news/v1',
+			'news-in-100-words/v1',
 			'/settings',
 			array(
 				'methods'             => 'GET',
@@ -124,11 +124,7 @@ class API {
 			return new \WP_Error('invalid_post', 'Post not found', array('status' => 404));
 		}
 
-		// Check if user can edit this post.
-		if (! current_user_can('edit_post', $post_id)) {
-			return new \WP_Error('forbidden', 'You do not have permission to edit this post', array('status' => 403));
-		}
-
+		// Permission check is handled in permission_callback, but validate post exists.
 		// Validate length parameter.
 		$valid_lengths = array('short', 'medium', 'large');
 		if (! in_array($length, $valid_lengths, true)) {
@@ -259,6 +255,30 @@ class API {
 	 */
 	public function check_logged_in_permission(): bool {
 		return is_user_logged_in();
+	}
+
+	/**
+	 * Check edit post permission
+	 * Verifies that the user can edit the specific post being requested
+	 *
+	 * @param \WP_REST_Request $request Request object.
+	 * @return bool
+	 */
+	public function check_edit_post_permission(\WP_REST_Request $request): bool {
+		// User must be logged in.
+		if (! is_user_logged_in()) {
+			return false;
+		}
+
+		$post_id = absint($request->get_param('post_id'));
+
+		// Validate post_id.
+		if (! $post_id || $post_id <= 0) {
+			return false;
+		}
+
+		// Check if user can edit this specific post.
+		return current_user_can('edit_post', $post_id);
 	}
 
 	/**

@@ -12,21 +12,6 @@ node_modules/**
 composer.lock
 package-lock.json
 
-# Build tools and configs
-composer.json
-package.json
-vite.config.js
-tailwind.config.js
-postcss.config.js
-tsconfig.json
-jsconfig.json
-
-# Development assets (production assets in dist/)
-# assets/
-
-# Build outputs (keep dist/ for production)
-# dist/ is included in distribution
-
 # Testing
 tests/
 .phpunit.result.cache
@@ -83,4 +68,6 @@ src/
 .phpunit.xml.php
 .phpunit.xml.php.dist
 .phpunit.xml.php.php
+
+
 

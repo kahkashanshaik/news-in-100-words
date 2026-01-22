@@ -56,7 +56,7 @@ class Classic {
 		foreach ($post_types as $post_type) {
 			add_meta_box(
 				'hundred_words_news_meta_box',
-				__('Hundred Words News', 'hundred-words-news'),
+				__('Hundred Words News', 'news-in-100-words'),
 				array($this, 'render_meta_box'),
 				$post_type,
 				'normal',
@@ -85,7 +85,7 @@ class Classic {
 		<div id="hwn-classic-editor" data-post-id="<?php echo esc_attr($post->ID); ?>">
 			<div class="hwn-summary-field-wrapper">
 				<label for="hwn_post_summary">
-					<strong><?php esc_html_e('Summary', 'hundred-words-news'); ?></strong>
+					<strong><?php esc_html_e('Summary', 'news-in-100-words'); ?></strong>
 				</label>
 				<?php
 				wp_editor(
@@ -106,26 +106,26 @@ class Classic {
 				<button type="button" class="button button-secondary hwn-generate-summary" 
 						data-length="<?php echo esc_attr($default_length); ?>"
 						data-language="<?php echo esc_attr($default_language); ?>">
-					<?php esc_html_e('Generate News', 'hundred-words-news'); ?>
+					<?php esc_html_e('Generate News', 'news-in-100-words'); ?>
 				</button>
 				<button type="button" class="button button-secondary hwn-regenerate-summary"
 						data-length="<?php echo esc_attr($default_length); ?>"
 						data-language="<?php echo esc_attr($default_language); ?>">
-					<?php esc_html_e('Regenerate News', 'hundred-words-news'); ?>
+					<?php esc_html_e('Regenerate News', 'news-in-100-words'); ?>
 				</button>
 			</div>
 
 			<div class="hwn-summary-show-icon">
 				<label>
 					<input type="checkbox" name="hundred_words_news_show_summary_icon" value="1" <?php checked($show_icon); ?>>
-					<?php esc_html_e('Show news icon on front-end', 'hundred-words-news'); ?>
+					<?php esc_html_e('Show news icon on front-end', 'news-in-100-words'); ?>
 				</label>
 			</div>
 
 			<div class="hwn-summary-thunderbolt-news">
 				<label>
 					<input type="checkbox" name="hundred_words_news_thunderbolt_news" value="1" <?php checked($thunderbolt_news); ?>>
-					<?php esc_html_e('Add news to thunderbolt', 'hundred-words-news'); ?>
+					<?php esc_html_e('Add news to thunderbolt', 'news-in-100-words'); ?>
 				</label>
 			</div>
 
@@ -211,25 +211,25 @@ class Classic {
 		}
 
 		wp_enqueue_script(
-			'hundred-words-news-admin',
-			HUNDRED_WORDS_NEWS_PLUGIN_URL . 'dist/js/admin.js',
+			'news-in-100-words-admin',
+			HUNDRED_WORDS_NEWS_PLUGIN_URL . 'assets/admin/js/index.js',
 			array('jquery'),
 			HUNDRED_WORDS_NEWS_VERSION,
 			true
 		);
 
 		wp_enqueue_style(
-			'hundred-words-news-admin',
-			HUNDRED_WORDS_NEWS_PLUGIN_URL . 'dist/css/admin.css',
+			'news-in-100-words-admin',
+			HUNDRED_WORDS_NEWS_PLUGIN_URL . 'assets/admin/css/index.css',
 			array(),
 			HUNDRED_WORDS_NEWS_VERSION
 		);
 
 		wp_localize_script(
-			'hundred-words-news-admin',
+			'news-in-100-words-admin',
 			'hundredWordsNewsAdmin',
 			array(
-				'apiUrl'  => rest_url('hundred-words-news/v1/'),
+				'apiUrl'  => rest_url('news-in-100-words/v1/'),
 				'nonce'   => wp_create_nonce('wp_rest'),
 			)
 		);

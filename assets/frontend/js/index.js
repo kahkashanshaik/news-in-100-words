@@ -1,6 +1,4 @@
 // Frontend JavaScript entry point
-import '../css/index.css';
-
 (function() {
 	'use strict';
 
